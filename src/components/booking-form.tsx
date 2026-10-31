@@ -45,9 +45,11 @@ export function BookingForm() {
       setStatus("success");
       setForm(empty);
       setPicked([]);
-    } catch {
+    } catch (err) {
       setStatus("idle");
-      setError("Something went wrong. Please try again in a moment.");
+      setError(err instanceof Error && err.message.includes("Too many requests")
+        ? "Too many enquiries were sent recently. Please try again later."
+        : "Something went wrong. Please try again in a moment.");
     }
   };
 
