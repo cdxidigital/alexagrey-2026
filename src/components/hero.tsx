@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { BadgeCheck, ChevronDown, MapPin } from "lucide-react";
+import { ChevronDown, MapPin, ShieldCheck } from "lucide-react";
 import { media, profile, scrollToId } from "@/lib/site-data";
 import { cn } from "@/lib/utils";
 
@@ -20,6 +20,7 @@ export function Hero() {
         <img
           src={media.heroImage}
           alt=""
+          fetchPriority="high"
           className="absolute inset-0 h-full w-full object-cover object-top"
         />
         {media.heroVideos.map((src, i) =>
@@ -29,6 +30,7 @@ export function Hero() {
               src={src}
               muted
               loop
+              preload={i === 0 ? "metadata" : "none"}
               playsInline
               autoPlay
               className="absolute inset-0 h-full w-full object-cover object-top"
@@ -68,7 +70,7 @@ export function Hero() {
         <div className="max-w-2xl">
           <div className="mb-5 flex flex-wrap items-center gap-3">
             <span className="inline-flex items-center gap-1.5 rounded-full border border-gold/40 bg-ink/40 px-3 py-1 label-text text-gold">
-              <BadgeCheck size={13} /> Verified · {profile.account}
+              <ShieldCheck size={13} /> 18+ · {profile.account}
             </span>
             <span className="inline-flex items-center gap-1.5 label-text text-muted">
               <MapPin size={13} /> {profile.location}
