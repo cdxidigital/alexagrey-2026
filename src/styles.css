@@ -850,3 +850,99 @@
 @media (prefers-reduced-motion: reduce) {
   .ellie-landing *, .ellie-landing *::before, .ellie-landing *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
 }
+
+
+/* Ellie May | age-entry design, visually coordinated with the public landing. */
+.ellie-age-overlay {
+  position: fixed;
+  z-index: 200;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  overflow-y: auto;
+  background: radial-gradient(ellipse at 73% 25%, #553443 0%, transparent 49%),
+              radial-gradient(ellipse at 8% 88%, #5b354e72 0%, transparent 55%),
+              #120b12;
+  color: #f8efeb;
+  font-family: "Manrope", system-ui, sans-serif;
+}
+.ellie-age-orbit {
+  position: fixed;
+  font: italic 300 min(72vw, 850px)/1 "Cormorant Garamond", Georgia, serif;
+  letter-spacing: -.11em;
+  opacity: .05;
+  pointer-events: none;
+  transform: rotate(-13deg);
+}
+.ellie-age-card {
+  position: relative;
+  z-index: 1;
+  width: min(100%, 770px);
+  border: 1px solid #ecccd04a;
+  background: #241521d9;
+  box-shadow: 0 40px 180px #0008;
+}
+.ellie-age-top,.ellie-age-bottom { display: flex; justify-content: space-between; align-items: center; gap: 20px; }
+.ellie-age-top {
+  padding: 20px 28px;
+  border-bottom: 1px solid #eac7d028;
+  font-size: 9px;
+  letter-spacing: .21em;
+  color: #dbb8c3;
+}
+.ellie-age-mark {
+  display: grid; place-items: center; flex: 0 0 42px; height: 42px;
+  border: 1px solid #cba2af;
+  border-radius: 50%;
+  font: italic 400 26px/1 "Cormorant Garamond", Georgia, serif;
+  letter-spacing: -.08em;
+  color: #f9eae6;
+}
+.ellie-age-inner { padding: clamp(30px, 7vw, 69px); text-align: center; }
+.ellie-age-eyebrow { display: flex; align-items: center; justify-content: center; gap: 11px; color: #dcb7c1; font-size: 10px; letter-spacing: .19em; }
+.ellie-age-inner h1 {
+  margin: 22px 0 27px;
+  color: #faece6;
+  font: 300 clamp(58px, 8vw, 100px)/.92 "Cormorant Garamond", Georgia, serif;
+  letter-spacing: -.06em;
+}
+.ellie-age-inner h1 em { color: #c99ba9; white-space: nowrap; }
+.ellie-age-inner > p:not(.ellie-age-eyebrow):not(.ellie-age-disclaimer) {
+  max-width: 540px;
+  margin: 0 auto 17px;
+  color: #d2b9c4;
+  font-size: 13px;
+  line-height: 1.9;
+}
+.ellie-age-actions { display: flex; gap: 18px; justify-content: center; align-items: center; margin: 31px 0 27px; }
+.ellie-age-actions button {
+  display: inline-flex; align-items: center; justify-content: space-between;
+  gap: 24px; padding: 16px 23px; min-height: 52px;
+  border: 1px solid #f5e8e1; background: #eee0d8; color: #261721;
+  font: 700 11px/1.1 "Manrope",sans-serif; letter-spacing: .03em;
+}
+.ellie-age-actions button:hover { background: #fff9f0; }
+.ellie-age-actions a { padding: 12px 3px; color: #ddc7d0; font-size: 12px; }
+.ellie-age-actions a:hover { color: #fff; }
+.ellie-age-disclaimer {
+  margin: 0 auto !important;
+  max-width: 500px;
+  color: #ad93a0;
+  font-size: 10px !important;
+  line-height: 1.8;
+}
+.ellie-age-bottom { padding: 21px 29px; border-top: 1px solid #eac7d028; font-size: 8px; letter-spacing: .17em; color: #b8a0ab; }
+@media(max-width:520px) {
+  .ellie-age-overlay { padding: 12px; }
+  .ellie-age-inner { padding: 43px 23px 35px; }
+  .ellie-age-inner h1 { font-size: clamp(53px, 12vw, 72px); }
+  .ellie-age-top { padding: 14px 20px; font-size: 8px; letter-spacing: .1em; }
+  .ellie-age-bottom { padding: 15px 18px; font-size: 7px; letter-spacing: .08em; }
+  .ellie-age-actions { flex-direction: column; }
+  .ellie-age-actions button { width: min(100%, 310px); }
+}
+@media(prefers-reduced-motion:reduce) {
+  .ellie-age-overlay * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
