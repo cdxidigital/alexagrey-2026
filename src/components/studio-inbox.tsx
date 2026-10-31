@@ -160,13 +160,12 @@ export function StudioInbox() {
               Enquiries
             </h1>
             <p className="mt-3 max-w-lg font-sans text-sm font-light text-muted">
-              New requests from the public booking form land here. Contact details stay
-              private to the admin inbox.
+              Review the latest 200 enquiries in this protected inbox. Contact details are never shown on the public website.
             </p>
           </div>
           <div className="flex gap-3">
             <Stat label="New" value={counts.new} />
-            <Stat label="Total" value={counts.total} />
+            <Stat label="Shown" value={counts.total} />
           </div>
         </div>
 
@@ -197,16 +196,23 @@ export function StudioInbox() {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Search name, phone, suburb"
+              aria-label="Search enquiries"
               className="field-input border-b-0 rounded-full border border-gold/20 bg-surface/40 py-2.5 pl-9 pr-4"
             />
           </label>
         </div>
 
-        {error && <p className="mt-6 text-sm text-danger">{error}</p>}
+        {error && <p role="alert" className="mt-6 text-sm text-danger">{error}</p>}
 
         {rows === null ? (
           <div className="mt-16 flex justify-center text-muted">
             <LoaderCircle className="animate-spin" />
+          </div>
+        ) : error && rows.length === 0 ? (
+          <div className="mt-12 rounded-2xl border border-danger/30 bg-surface/40 px-8 py-12 text-center">
+            <p className="font-serif text-2xl text-cream">Could not load the inbox</p>
+            <p className="mt-2 text-sm text-muted">Check your studio access and network connection.</p>
+            <button type="button" onClick={() => void load()} className="btn-ghost mt-6">Retry</button>
           </div>
         ) : visible.length === 0 ? (
           <div className="mt-16 rounded-2xl border border-gold/15 bg-surface/40 px-8 py-16 text-center">
@@ -310,6 +316,7 @@ export function StudioInbox() {
                       <label className="mt-6 block">
                         <span className="field-label">Private notes</span>
                         <textarea
+                          key={`${row.id}:${row.notes}`}
                           defaultValue={row.notes}
                           rows={3}
                           className="field-input resize-none"
