@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { ArrowDown, ArrowRight, ArrowUpRight, Film, Menu, Play, X } from "lucide-react";
+import { ArrowDown, ArrowUpRight, Film, Menu, Play, X } from "lucide-react";
 import { media } from "@/lib/site-data";
 
 const sections = [
@@ -40,7 +40,10 @@ export function EditorialPreview() {
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
     const onEscape = (event: KeyboardEvent) => {
-      if (event.key === "Escape") closeFilm();
+      if (event.key === "Escape") {
+        setActiveFilm(null);
+        window.requestAnimationFrame(() => filmOpener.current?.focus());
+      }
     };
     window.addEventListener("keydown", onEscape);
     return () => {
