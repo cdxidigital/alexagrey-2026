@@ -133,10 +133,14 @@ export const unlockInbox = createServerFn({ method: "POST" })
   .validator((raw: { code: string }) => ({ code: String(raw?.code ?? "").trim() }))
   .handler(async ({ data }) => {
     const { grantInboxAccess } = await import("@/lib/inbox-access.server");
-    const token = grantInboxAccess(data.code);
-    if (!token) throw new Error("Incorrect code.");
-    return { token };
+    if (!grantInboxAccess(data.code)) throw new Error("Incorrect code.");
+    return { ok: true as const };
   });
+
+export const checkInboxAccess = createServerFn({ method: "GET" }).handler(async () => {
+  const { hasInboxAccess } = await import("@/lib/inbox-access.server");
+  return { authorized: hasInboxAccess() };
+});
 
 export const lockInbox = createServerFn({ method: "POST" }).handler(async () => {
   const { clearInboxAccess } = await import("@/lib/inbox-access.server");
@@ -145,10 +149,9 @@ export const lockInbox = createServerFn({ method: "POST" }).handler(async () => 
 });
 
 export const listEnquiries = createServerFn({ method: "POST" })
-  .validator((raw: { token?: string }) => ({ token: String(raw?.token ?? "") }))
-  .handler(async ({ data }): Promise<Enquiry[]> => {
-    const { assertInboxToken } = await import("@/lib/inbox-access.server");
-    assertInboxToken(data.token);
+  .handler(async (): Promise<Enquiry[]> => {
+    const { assertInboxAccess } = await import("@/lib/inbox-access.server");
+    assertInboxAccess();
     const sql = await getSql();
   const rows = await sql.query<Record<string, unknown>>(
     `select id, name, email, phone, duration, preferred_at, location,
@@ -160,16 +163,16 @@ export const listEnquiries = createServerFn({ method: "POST" })
 });
 
 export const updateEnquiry = createServerFn({ method: "POST" })
-  .validator((raw: { id: number; status?: EnquiryStatus; notes?: string; token?: string }) => {
+  .validator((raw: { id: number; status?: EnquiryStatus; notes?: string }) => {
     const id = Number(raw.id);
     if (!Number.isInteger(id) || id < 1) throw new Error("Invalid enquiry.");
     const status = raw.status ? asStatus(raw.status) : undefined;
     const notes = raw.notes !== undefined ? clip(raw.notes, 2000) : undefined;
-    return { id, status, notes, token: String(raw.token ?? "") };
+    return { id, status, notes };
   })
   .handler(async ({ data }): Promise<Enquiry | null> => {
-    const { assertInboxToken } = await import("@/lib/inbox-access.server");
-    assertInboxToken(data.token);
+    const { assertInboxAccess } = await import("@/lib/inbox-access.server");
+    assertInboxAccess();
     const sql = await getSql();
     const rows = await sql.query<Record<string, unknown>>(
       `update bookings
