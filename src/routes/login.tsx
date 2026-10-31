@@ -1,7 +1,6 @@
 import { useState, type FormEvent } from "react";
 import { createFileRoute, Link, Navigate } from "@tanstack/react-router";
 import { unlockInbox } from "@/lib/bookings";
-import { saveInboxToken } from "@/lib/inbox-session";
 import { profile } from "@/lib/site-data";
 
 export const Route = createFileRoute("/login")({ component: Login });
@@ -19,8 +18,7 @@ function Login() {
     setPending(true);
     setError("");
     try {
-      const { token } = await unlockInbox({ data: { code } });
-      saveInboxToken(token);
+      await unlockInbox({ data: { code } });
       setDone(true);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Incorrect code.");
