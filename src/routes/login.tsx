@@ -11,7 +11,7 @@ function Login() {
   const [pending, setPending] = useState(false);
   const [done, setDone] = useState(false);
 
-  if (done) return <Navigate to="/admin" />;
+  if (done) return <Navigate to="/studio" />;
 
   const submit = async (event: FormEvent) => {
     event.preventDefault();
