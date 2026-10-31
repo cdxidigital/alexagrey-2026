@@ -36,6 +36,7 @@ export function Navbar() {
           : "border-b border-transparent bg-transparent",
       )}
     >
+      <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-3 focus:z-[90] focus:rounded-lg focus:bg-gold focus:px-4 focus:py-2 focus:text-ink">Skip to content</a>
       <div className="mx-auto flex h-16 max-w-7xl items-center px-5 md:px-10">
         <button
           type="button"
