@@ -32,7 +32,7 @@ async function consume(
     `INSERT INTO ellie_rate_limits (bucket_key, window_start, attempts)
      VALUES (
        $1,
-       to_timestamp(floor(extract(epoch from now()) / $2) * $2),
+       to_timestamp(floor(extract(epoch from now()) / $2::double precision) * $2::double precision),
        1
      )
      ON CONFLICT (bucket_key, window_start)
@@ -50,6 +50,18 @@ export async function requireRateLimit(scope: RateLimitScope): Promise<void> {
 
   const local = await consume(sql, `${scope}:client:${digest}`, policy.windowSeconds);
   const global = await consume(sql, `${scope}:global`, policy.windowSeconds);
+
+  // Remove expired pseudonymous buckets once at the start of an active window.
+  // Failure to prune must not weaken the active rate-limit decision.
+  if (global === 1) {
+    try {
+      await sql.query(
+        "DELETE FROM ellie_rate_limits WHERE window_start < now() - interval '48 hours'",
+      );
+    } catch {
+      console.error("[rate-limit] expired-bucket cleanup failed");
+    }
+  }
 
   if (exceedsLimit(local, policy.perClient) || exceedsLimit(global, policy.global)) {
     setResponseStatus(429);
