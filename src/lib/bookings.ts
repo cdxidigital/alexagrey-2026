@@ -110,6 +110,11 @@ function parseEnquiryInput(raw: EnquiryInput): EnquiryInput {
 export const submitEnquiry = createServerFn({ method: "POST" })
   .validator((raw: EnquiryInput) => parseEnquiryInput(raw))
   .handler(async ({ data }) => {
+    const { isCommercialPublicationApproved } =
+      await import("@/lib/public-mode.server");
+    if (!isCommercialPublicationApproved()) {
+      throw new Error("Booking enquiries are not currently available.");
+    }
     const { requireRateLimit } = await import("@/lib/rate-limit.server");
     await requireRateLimit("enquiry");
     setResponseHeader("Cache-Control", "no-store");
