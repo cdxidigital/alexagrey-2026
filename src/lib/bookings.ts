@@ -1,4 +1,5 @@
 import { createServerFn } from "@tanstack/react-start";
+import { setResponseHeader } from "@tanstack/react-start/server";
 import { getSql } from "@/lib/db";
 import { durationOptions, extras as extraMenu } from "@/lib/site-data";
 
@@ -109,6 +110,9 @@ function parseEnquiryInput(raw: EnquiryInput): EnquiryInput {
 export const submitEnquiry = createServerFn({ method: "POST" })
   .validator((raw: EnquiryInput) => parseEnquiryInput(raw))
   .handler(async ({ data }) => {
+    const { requireRateLimit } = await import("@/lib/rate-limit.server");
+    await requireRateLimit("enquiry");
+    setResponseHeader("Cache-Control", "no-store");
     const sql = await getSql();
     const rows = await sql.query<{ id: number }>(
       `insert into bookings
@@ -130,19 +134,24 @@ export const submitEnquiry = createServerFn({ method: "POST" })
   });
 
 export const unlockInbox = createServerFn({ method: "POST" })
-  .validator((raw: { code: string }) => ({ code: String(raw?.code ?? "").trim() }))
+  .validator((raw: { code: string }) => ({ code: String(raw?.code ?? "").trim().slice(0, 128) }))
   .handler(async ({ data }) => {
+    const { requireRateLimit } = await import("@/lib/rate-limit.server");
+    await requireRateLimit("studio-login");
+    setResponseHeader("Cache-Control", "no-store");
     const { grantInboxAccess } = await import("@/lib/inbox-access.server");
     if (!grantInboxAccess(data.code)) throw new Error("Incorrect code.");
     return { ok: true as const };
   });
 
 export const checkInboxAccess = createServerFn({ method: "GET" }).handler(async () => {
+  setResponseHeader("Cache-Control", "no-store");
   const { hasInboxAccess } = await import("@/lib/inbox-access.server");
   return { authorized: hasInboxAccess() };
 });
 
 export const lockInbox = createServerFn({ method: "POST" }).handler(async () => {
+  setResponseHeader("Cache-Control", "no-store");
   const { clearInboxAccess } = await import("@/lib/inbox-access.server");
   clearInboxAccess();
   return { ok: true as const };
@@ -152,27 +161,36 @@ export const listEnquiries = createServerFn({ method: "POST" })
   .handler(async (): Promise<Enquiry[]> => {
     const { assertInboxAccess } = await import("@/lib/inbox-access.server");
     assertInboxAccess();
+    setResponseHeader("Cache-Control", "no-store");
     const sql = await getSql();
-  const rows = await sql.query<Record<string, unknown>>(
-    `select id, name, email, phone, duration, preferred_at, location,
-            extras, message, status, notes, created_at::text as created_at
-       from bookings
-      order by created_at desc`,
-  );
-  return rows.map(mapRow);
+    const rows = await sql.query<Record<string, unknown>>(
+      `select id, name, email, phone, duration, preferred_at, location,
+              extras, message, status, notes, created_at::text as created_at
+         from bookings
+        order by created_at desc
+        limit 200`,
+    );
+    return rows.map(mapRow);
 });
 
 export const updateEnquiry = createServerFn({ method: "POST" })
   .validator((raw: { id: number; status?: EnquiryStatus; notes?: string }) => {
     const id = Number(raw.id);
     if (!Number.isInteger(id) || id < 1) throw new Error("Invalid enquiry.");
-    const status = raw.status ? asStatus(raw.status) : undefined;
+    if (raw.status !== undefined && !STATUS_SET.has(raw.status)) {
+      throw new Error("Invalid enquiry status.");
+    }
+    const status = raw.status;
     const notes = raw.notes !== undefined ? clip(raw.notes, 2000) : undefined;
+    if (status === undefined && notes === undefined) {
+      throw new Error("No changes supplied.");
+    }
     return { id, status, notes };
   })
   .handler(async ({ data }): Promise<Enquiry | null> => {
     const { assertInboxAccess } = await import("@/lib/inbox-access.server");
     assertInboxAccess();
+    setResponseHeader("Cache-Control", "no-store");
     const sql = await getSql();
     const rows = await sql.query<Record<string, unknown>>(
       `update bookings
