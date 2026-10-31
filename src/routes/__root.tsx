@@ -12,7 +12,9 @@ export const Route = createRootRoute({
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: APP_NAME },
       { name: "theme-color", content: "#050505" },
-      { name: "description", content: "Ellie May — independent adult companion based in Perth, WA. Strictly 18+." },
+      { name: "description", content: "Ellie May — creator-led editorial presence. Commercial content is subject to publication approval." },
+      { name: "robots", content: "noindex, nofollow, noarchive, nosnippet" },
+      { name: "referrer", content: "strict-origin-when-cross-origin" },
       { name: "rating", content: "adult" },
     ],
     links: [
