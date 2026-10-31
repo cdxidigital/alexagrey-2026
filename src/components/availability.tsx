@@ -1,3 +1,4 @@
+import { useEffect, useMemo, useState } from "react";
 import { Clock } from "lucide-react";
 import { weeklyHours } from "@/lib/site-data";
 import { FadeIn } from "@/components/fade-in";
@@ -25,8 +26,7 @@ function perthNow() {
   };
 }
 
-function schedule() {
-  const { dayIndex } = perthNow();
+function buildSchedule(dayIndex: number) {
   const today = weeklyHours[dayIndex]!;
   const rest = [
     ...weeklyHours.slice(dayIndex + 1),
@@ -34,12 +34,12 @@ function schedule() {
   ];
 
   return [
-    { day: "Today", hours: today.hours, isToday: true },
-    ...rest.map((d) => ({ ...d, isToday: false })),
+    { day: "Today", hours: today.hours },
+    ...rest.map((d) => ({ day: d.day, hours: d.hours })),
   ];
 }
 
-function isOpenNow(hours: string) {
+function isOpenAt(hours: string, minutes: number) {
   if (hours.includes("24")) return true;
 
   const match = hours.match(/(\d{1,2}):(\d{2})\s*(AM|PM)/i);
@@ -51,16 +51,25 @@ function isOpenNow(hours: string) {
   if (ap === "PM" && h !== 12) h += 12;
   if (ap === "AM" && h === 12) h = 0;
 
-  const { minutes } = perthNow();
   const start = h * 60 + m;
-
-  // Existing schedule wording is "till late". Treat it as continuing until 4am AWST.
   return minutes >= start || minutes < 4 * 60;
 }
 
 export function Availability() {
-  const rows = schedule();
-  const open = isOpenNow(rows[0]!.hours);
+  const [clock, setClock] = useState<{ dayIndex: number; minutes: number } | null>(null);
+
+  useEffect(() => {
+    const update = () => setClock(perthNow());
+    update();
+    const timer = window.setInterval(update, 60_000);
+    return () => window.clearInterval(timer);
+  }, []);
+
+  const rows = useMemo(
+    () => buildSchedule(clock?.dayIndex ?? 0),
+    [clock?.dayIndex],
+  );
+  const open = clock ? isOpenAt(rows[0]!.hours, clock.minutes) : false;
 
   return (
     <section
