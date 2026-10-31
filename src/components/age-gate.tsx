@@ -1,51 +1,35 @@
-import { BadgeCheck, Sparkles } from "lucide-react";
-import { profile } from "@/lib/site-data";
+import { ArrowUpRight, ShieldCheck } from "lucide-react";
 
+/**
+ * First-visit acknowledgment for the editorial preview.
+ * It is not an identity or age-verification technology.
+ */
 export function AgeGate({ onEnter }: { onEnter: () => void }) {
   return (
-    <div
-      data-testid="age-verification-gate"
-      className="fixed inset-0 z-[100] flex items-center justify-center px-6"
-      style={{ background: "rgba(5,5,5,0.96)", backdropFilter: "blur(24px)" }}
-    >
-      <div className="glass w-full max-w-lg rounded-2xl p-10 text-center md:p-14">
-        <div className="mb-6 flex items-center justify-center gap-2 text-gold">
-          <Sparkles size={16} />
-          <span className="label-text text-gold-dark">Strictly 18+</span>
-          <Sparkles size={16} />
+    <div className="ellie-age-overlay" data-testid="age-verification-gate">
+      <div aria-hidden="true" className="ellie-age-orbit">e.</div>
+      <div className="ellie-age-card">
+        <div className="ellie-age-top">
+          <span className="ellie-age-mark">em</span>
+          <span>THE PRIVATE EDITION / ELLIE MAY</span>
         </div>
-        <h1 className="heading-serif text-5xl font-light md:text-6xl">{profile.name}</h1>
-        <p className="mt-3 font-sans text-sm tracking-wide text-muted">
-          Independent companion · {profile.location}
-        </p>
-        <div className="mx-auto my-8 h-px w-24 hair-line" />
-        <p className="mx-auto max-w-md font-sans text-sm leading-relaxed text-cream/80">
-          This website contains adult-oriented material intended for mature audiences
-          only. By entering you confirm that you are at least
-          <span className="text-gold"> 18 years of age</span> (or the age of majority
-          in your jurisdiction) and consent to viewing such content.
-        </p>
-        <div className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
-          <button
-            type="button"
-            data-testid="age-gate-enter-btn"
-            onClick={onEnter}
-            className="btn-gold w-full sm:w-auto"
-          >
-            <BadgeCheck size={18} />
-            I am 18 or older — Enter
-          </button>
-          <a
-            data-testid="age-gate-exit-btn"
-            href="https://www.google.com"
-            className="btn-ghost w-full sm:w-auto"
-          >
-            Leave
-          </a>
+        <div className="ellie-age-inner">
+          <p className="ellie-age-eyebrow"><ShieldCheck size={17} aria-hidden="true" /> AN ADULT EDITORIAL PREVIEW</p>
+          <h1>Welcome to <em>Ellie May.</em></h1>
+          <p>This website is intended for adults aged 18 or older and may contain mature editorial imagery.</p>
+          <p>By entering, you confirm that you are at least 18 and understand that this is a non-commercial preview with no active booking service.</p>
+          <div className="ellie-age-actions">
+            <button type="button" data-testid="age-gate-enter-btn" onClick={onEnter}>
+              I am 18 or older <ArrowUpRight size={18} aria-hidden="true" />
+            </button>
+            <a data-testid="age-gate-exit-btn" href="https://www.google.com/">Leave website</a>
+          </div>
+          <p className="ellie-age-disclaimer">This acknowledgment is not identity or age verification. Commercial publication remains subject to separate approvals.</p>
         </div>
-        <p className="mt-7 text-xs leading-relaxed text-muted/70">
-          Legal adult services provided by an independent professional.
-        </p>
+        <div className="ellie-age-bottom">
+          <span>CREATOR-LED DIGITAL EXPERIENCE</span>
+          <span>EST. INDEPENDENT SPIRIT</span>
+        </div>
       </div>
     </div>
   );
