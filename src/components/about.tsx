@@ -16,7 +16,7 @@ export function About() {
             <div className="relative overflow-hidden rounded-[1.6rem]">
               <img
                 src={media.aboutImage}
-                alt="Alexa Grey portrait"
+                alt="Ellie May portrait"
                 className="aspect-[3/4] w-full object-cover"
               />
               <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink/60 via-transparent to-transparent" />

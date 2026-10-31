@@ -75,8 +75,8 @@ export function Hero() {
             </span>
           </div>
           <h1 className="hero-display">
-            Alexa
-            <span className="block italic text-cream">Grey</span>
+            Ellie
+            <span className="block italic text-cream">May</span>
           </h1>
           <p className="mt-6 max-w-xl font-serif text-2xl font-light italic leading-snug text-cream/90 md:text-3xl">
             “{profile.tagline} — equal parts charm & chaos.”

@@ -1,7 +1,7 @@
 import imageManifest from "./image-manifest.json";
 
 export const profile = {
-  name: "Alexa Grey",
+  name: "Ellie May",
   location: "Perth, WA",
   account: "Independent",
   updated: "Recently updated",

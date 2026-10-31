@@ -3,7 +3,7 @@ import { AuthProvider } from "@/lib/auth/provider";
 import { PreviewHostBridge } from "@/components/preview-host-bridge";
 import appCss from "../styles.css?url";
 
-const APP_NAME = "Alexa Grey · Perth Companion";
+const APP_NAME = "Ellie May · Perth Companion";
 
 export const Route = createRootRoute({
   head: () => ({
@@ -12,7 +12,7 @@ export const Route = createRootRoute({
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: APP_NAME },
       { name: "theme-color", content: "#050505" },
-      { name: "description", content: "Alexa Grey — independent adult companion based in Perth, WA. Strictly 18+." },
+      { name: "description", content: "Ellie May — independent adult companion based in Perth, WA. Strictly 18+." },
       { name: "rating", content: "adult" },
     ],
     links: [

@@ -32,7 +32,7 @@ function Tile({
       {item.type === "image" ? (
         <img
           src={item.src}
-          alt="Alexa gallery"
+          alt="Ellie May gallery"
           className="h-full w-full object-cover transition-[filter,transform] duration-700 group-hover:scale-105"
           style={{
             filter: revealed ? "none" : "blur(26px)",
@@ -151,7 +151,7 @@ export function Gallery() {
           {open.type === "image" ? (
             <img
               src={open.src}
-              alt="Alexa"
+              alt="Ellie May"
               className="max-h-[88vh] max-w-full rounded-lg object-contain"
               onClick={(e) => e.stopPropagation()}
             />

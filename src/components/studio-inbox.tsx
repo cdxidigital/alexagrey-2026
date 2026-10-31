@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState, type ReactNode } from "react";
 import {
   Archive,
   Check,
+  ChevronDown,
   Inbox,
   LoaderCircle,
   Mail,
@@ -46,14 +47,19 @@ export function StudioInbox() {
   const [query, setQuery] = useState("");
   const [openId, setOpenId] = useState<number | null>(null);
   const [busyId, setBusyId] = useState<number | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   const load = async () => {
+    setIsLoading(true);
+    setError("");
     try {
       const data = await listEnquiries({ data: { token: readInboxTabToken() } });
       setRows(data);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Could not load enquiries.");
       setRows([]);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -120,6 +126,15 @@ export function StudioInbox() {
             <p className="mt-1 label-text text-gold-dark">Admin inbox</p>
           </div>
           <div className="flex items-center gap-4">
+            <button
+              type="button"
+              onClick={() => void load()}
+              className="btn-ghost px-3 py-2 text-xs"
+              disabled={isLoading}
+              aria-label="Refresh enquiries"
+            >
+              {isLoading ? <LoaderCircle size={14} className="animate-spin" /> : "Refresh"}
+            </button>
             <button
               type="button"
               onClick={() => leave("/")}
@@ -220,6 +235,8 @@ export function StudioInbox() {
                   <button
                     type="button"
                     onClick={() => setOpenId(open ? null : row.id)}
+                    aria-expanded={open}
+                    aria-controls={`enquiry-${row.id}`}
                     className="flex w-full flex-col gap-3 px-5 py-4 text-left md:flex-row md:items-center md:justify-between"
                   >
                     <div>
@@ -231,6 +248,11 @@ export function StudioInbox() {
                       </p>
                     </div>
                     <div className="flex flex-wrap items-center gap-3">
+                      <ChevronDown
+                        aria-hidden="true"
+                        className={cn("text-gold transition-transform", open && "rotate-180")}
+                        size={16}
+                      />
                       <span className="text-xs text-muted">
                         {relativeTime(row.created_at)}
                       </span>
@@ -245,7 +267,7 @@ export function StudioInbox() {
                     </div>
                   </button>
                   {open && (
-                    <div className="border-t border-gold/10 px-5 py-5 md:px-6">
+                    <div id={`enquiry-${row.id}`} className="border-t border-gold/10 px-5 py-5 md:px-6">
                       <div className="grid gap-4 sm:grid-cols-2">
                         <Detail
                           icon={<Phone size={14} />}
