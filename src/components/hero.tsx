@@ -6,13 +6,23 @@ import { cn } from "@/lib/utils";
 export function Hero() {
   const [active, setActive] = useState(0);
   const [failed, setFailed] = useState<Record<number, boolean>>({});
+  const [reducedMotion, setReducedMotion] = useState(false);
 
   useEffect(() => {
+    const preference = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const sync = () => setReducedMotion(preference.matches);
+    sync();
+    preference.addEventListener("change", sync);
+    return () => preference.removeEventListener("change", sync);
+  }, []);
+
+  useEffect(() => {
+    if (reducedMotion) return;
     const id = window.setInterval(() => {
       setActive((i) => (i + 1) % media.heroVideos.length);
     }, 7000);
     return () => window.clearInterval(id);
-  }, []);
+  }, [reducedMotion]);
 
   return (
     <section id="top" className="relative min-h-screen overflow-hidden">
@@ -23,24 +33,19 @@ export function Hero() {
           fetchPriority="high"
           className="absolute inset-0 h-full w-full object-cover object-top"
         />
-        {media.heroVideos.map((src, i) =>
-          failed[i] ? null : (
-            <video
-              key={src}
-              src={src}
-              muted
-              loop
-              preload={i === 0 ? "metadata" : "none"}
-              playsInline
-              autoPlay
-              className="absolute inset-0 h-full w-full object-cover object-top"
-              style={{
-                opacity: i === active ? 1 : 0,
-                transition: "opacity 1600ms cubic-bezier(0.4, 0, 0.2, 1)",
-              }}
-              onError={() => setFailed((m) => ({ ...m, [i]: true }))}
-            />
-          ),
+        {!failed[active] && !reducedMotion && (
+          <video
+            key={media.heroVideos[active]}
+            src={media.heroVideos[active]}
+            muted
+            loop
+            preload="metadata"
+            playsInline
+            autoPlay
+            aria-hidden="true"
+            className="absolute inset-0 h-full w-full object-cover object-top"
+            onError={() => setFailed((errors) => ({ ...errors, [active]: true }))}
+          />
         )}
         <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/70 to-ink/20" />
         <div className="absolute inset-0 bg-gradient-to-r from-ink/85 via-transparent to-transparent" />
