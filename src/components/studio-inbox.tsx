@@ -18,7 +18,6 @@ import {
   type Enquiry,
   type EnquiryStatus,
 } from "@/lib/bookings";
-import { clearInboxToken, readInboxTabToken } from "@/lib/inbox-session";
 import { cn, relativeTime } from "@/lib/utils";
 import { profile } from "@/lib/site-data";
 
@@ -53,7 +52,7 @@ export function StudioInbox() {
     setIsLoading(true);
     setError("");
     try {
-      const data = await listEnquiries({ data: { token: readInboxTabToken() } });
+      const data = await listEnquiries();
       setRows(data);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Could not load enquiries.");
@@ -92,7 +91,7 @@ export function StudioInbox() {
     setBusyId(id);
     try {
       const updated = await updateEnquiry({
-        data: { id, ...patchData, token: readInboxTabToken() },
+        data: { id, ...patchData },
       });
       if (updated) {
         setRows((list) =>
@@ -107,7 +106,6 @@ export function StudioInbox() {
   };
 
   const leave = (to: "/" | "/login") => {
-    clearInboxToken();
     void lockInbox().finally(() => navigate({ to }));
   };
 
