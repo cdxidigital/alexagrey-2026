@@ -33,6 +33,8 @@ function Tile({
         <img
           src={item.src}
           alt="Ellie May gallery"
+          loading="lazy"
+          decoding="async"
           className="h-full w-full object-cover transition-[filter,transform] duration-700 group-hover:scale-105"
           style={{
             filter: revealed ? "none" : "blur(26px)",
@@ -78,7 +80,7 @@ export function Gallery() {
             <div>
               <p className="label-text">Gallery</p>
               <h2 className="mt-3 heading-serif text-4xl font-light md:text-5xl">
-                Recent & verified
+                Private gallery
               </h2>
               <p className="mt-3 max-w-md font-sans text-sm font-light text-muted">
                 Photos and clips are blurred for your discretion. Opt in to reveal.
