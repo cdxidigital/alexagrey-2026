@@ -108,7 +108,7 @@ export function Availability() {
                     {row.day}
                     {open && i === 0 && (
                       <span className="rounded-full bg-gold px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wide text-ink">
-                        Available now
+                        Within listed hours
                       </span>
                     )}
                   </span>
