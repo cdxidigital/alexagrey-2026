@@ -4,9 +4,7 @@ on:
   push:
     branches:
       - cdxi/ellie-may-audit-polish
-  pull_request:
-    branches:
-      - v0/ellie-may-polish
+  workflow_dispatch:
 
 permissions:
   contents: write
