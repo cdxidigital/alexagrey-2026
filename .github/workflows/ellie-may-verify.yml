@@ -1,0 +1,58 @@
+name: Ellie May - quality gate
+
+on:
+  push:
+    branches:
+      - cdxi/ellie-may-audit-polish
+  pull_request:
+    branches:
+      - v0/ellie-may-polish
+
+permissions:
+  contents: write
+
+concurrency:
+  group: ellie-verify-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    name: Install, typecheck, lint, tests and build
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Regenerate patched npm lockfile
+        run: npm install --package-lock-only --ignore-scripts --no-audit --no-fund
+      - name: Clean install
+        run: npm ci --ignore-scripts --no-audit --no-fund
+      - name: TypeScript
+        run: npm run typecheck
+      - name: Lint
+        run: npm run lint
+      - name: Tests
+        run: npm test
+      - name: Production build
+        run: npm run build
+      - name: Save lockfile for review
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ellie-may-generated-lockfile
+          path: package-lock.json
+          if-no-files-found: ignore
+      - name: Commit lockfile after successful checks
+        if: github.event_name == 'push' && github.ref == 'refs/heads/cdxi/ellie-may-audit-polish'
+        run: |
+          git add package-lock.json
+          if ! git diff --cached --quiet; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git commit -m "chore: refresh verified dependency lockfile [skip ci]"
+            git push origin HEAD:cdxi/ellie-may-audit-polish
+          fi
