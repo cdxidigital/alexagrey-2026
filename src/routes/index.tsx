@@ -47,7 +47,7 @@ function Home() {
   }
 
   return (
-    <main className="bg-ink">
+    <main id="main-content" className="bg-ink">
       <Navbar />
       <Hero />
       <Facts />
