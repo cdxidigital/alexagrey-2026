@@ -27,6 +27,12 @@
 
 **Security warning:** these flags are human-controlled release gates, not legal verdicts. They must never be automated from a visitor-entered state/territory field or an unverified IP geolocation guess.
 
+## fleshsesh Studio (protected)
+
+The authenticated `/studio` page now presents a read-only readiness board, four operational approval flags and a state/territory review queue. Its source is a protected server function; the page has no action that changes approvals or publishes advertising. `/admin` remains the private enquiry inbox.
+
+**Note:** every jurisdiction entry is a review prompt, not a statement that a state permits a particular offer. Staff must not treat a global environment flag as a substitute for evidence.
+
 ## Booking privacy and security
 
 - The database-backed limiter has per-client and global limits. Client identifiers are HMACs; raw client IPs are not written to the rate-limit table.
