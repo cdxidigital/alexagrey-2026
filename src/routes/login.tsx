@@ -33,10 +33,10 @@ function Login() {
         onSubmit={submit}
         className="glass w-full max-w-sm rounded-2xl p-8 text-center"
       >
-        <p className="label-text">Admin inbox</p>
+        <p className="label-text">fleshsesh Studio</p>
         <h1 className="mt-3 heading-serif text-4xl font-light">{profile.name}</h1>
         <p className="mt-3 font-sans text-sm font-light text-muted">
-          Enter the access code to view booking enquiries.
+          Enter your authorised studio access code.
         </p>
         <label className="mt-8 block text-left">
           <span className="field-label">Access code</span>
@@ -58,7 +58,7 @@ function Login() {
           className="btn-gold mt-6 w-full"
           data-testid="admin-unlock"
         >
-          {pending ? "Checking…" : "Open inbox"}
+          {pending ? "Checking…" : "Open Studio"}
         </button>
         <Link to="/" className="mt-8 inline-block label-text text-muted hover:text-gold">
           Back to site
