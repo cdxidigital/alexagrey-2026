@@ -193,18 +193,19 @@ export function EditorialPreview() {
               aria-expanded={showMedia}
               aria-controls="ellie-gallery-grid"
             >
-              {showMedia ? "Hide original media" : "Reveal original media"}
+              {showMedia ? "Hide original media" : "Reveal 1 portrait + 3 clips"}
               <ArrowUpRight size={17} aria-hidden="true" />
             </button>
             <p>Original media reveal is optional. It does not perform age verification.</p>
           </div>
           <div id="ellie-gallery-grid" className="ellie-gallery-grid">
             <div className={"ellie-image-tile " + (showMedia ? "ellie-media-open" : "ellie-media-covered")}>
-              {showMedia ? (
-                <img src={media.heroImage} loading="lazy" decoding="async" alt="Original-site editorial image" />
-              ) : (
-                <div className="ellie-image-placeholder" aria-hidden="true"><span>e.</span></div>
-              )}
+              <img
+                src={media.heroImage}
+                loading="lazy"
+                decoding="async"
+                alt={showMedia ? "Authorised original-site editorial image" : "Original image, details intentionally softened until revealed"}
+              />
               <div className="ellie-tile-footer">
                 <div><small>01 / PORTRAIT</small><strong>Behind the frame</strong></div>
                 <span className="ellie-tile-arrow" aria-hidden="true">↗</span>
