@@ -20,7 +20,9 @@ test("original-site image and all three film assets are retained", () => {
   for (let i = 0; i < 3; i += 1) {
     assert.ok(landing.includes("media.heroVideos[" + i + "]"), "Missing original film " + (i + 1));
   }
-  assert.match(landing, /Reveal original media/);
+  assert.match(landing, /Reveal 1 portrait \+ 3 clips/);
+  assert.match(landing, /<img\s+src=\{media.heroImage\}/);
+  assert.doesNotMatch(landing, /<div className="ellie-image-placeholder"/);
 });
 
 test("non-commercial landing excludes booking and explicit rates", () => {
