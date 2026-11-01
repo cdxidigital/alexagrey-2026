@@ -9,7 +9,8 @@ const root = source("src/routes/__root.tsx");
 const editorial = source("src/components/editorial-preview.tsx");
 
 test("public homepage imports the independently scoped luxe theme", () => {
-  assert.match(homepage, /import "\@\/styles\/ellie-black-gold-v5\.css"/);
+  assert.match(root, /ellieGoldCss/);
+  assert.match(root, /href: ellieGoldCss/);
   assert.match(css, /\.ellie-landing\s*\{/);
   assert.match(css, /\.ellie-estimator\s*\{/);
   assert.match(css, /\.ellie-age-overlay\s*\{/);
