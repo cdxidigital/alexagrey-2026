@@ -2,6 +2,7 @@ import { createServerFn } from "@tanstack/react-start";
 import { setResponseHeader } from "@tanstack/react-start/server";
 import { getSql } from "@/lib/db";
 import { durationOptions, extras as extraMenu } from "@/lib/site-data";
+import { rejectPhysicalBookingIntake } from "@/lib/ellie-digital-scope";
 
 export const STATUSES = ["new", "contacted", "confirmed", "declined", "archived"] as const;
 export type EnquiryStatus = (typeof STATUSES)[number];
@@ -107,35 +108,16 @@ function parseEnquiryInput(raw: EnquiryInput): EnquiryInput {
   return { name, email, phone, duration, date, location, extras, message };
 }
 
+/**
+ * Compatibility endpoint: a legacy form may reference this function, but
+ * fleshsesh is not an operator of Ellie's physical-service bookings.
+ * Always reject direct calls, irrespective of publication or studio flags.
+ */
 export const submitEnquiry = createServerFn({ method: "POST" })
   .validator((raw: EnquiryInput) => parseEnquiryInput(raw))
-  .handler(async ({ data }) => {
-    const { isCommercialPublicationApproved } =
-      await import("@/lib/public-mode.server");
-    if (!isCommercialPublicationApproved()) {
-      throw new Error("Booking enquiries are not currently available.");
-    }
-    const { requireRateLimit } = await import("@/lib/rate-limit.server");
-    await requireRateLimit("enquiry");
+  .handler(async () => {
     setResponseHeader("Cache-Control", "no-store");
-    const sql = await getSql();
-    const rows = await sql.query<{ id: number }>(
-      `insert into bookings
-        (name, email, phone, duration, preferred_at, location, extras, message)
-       values ($1, $2, $3, $4, $5, $6, $7::jsonb, $8)
-       returning id`,
-      [
-        data.name,
-        data.email,
-        data.phone,
-        data.duration,
-        data.date,
-        data.location,
-        JSON.stringify(data.extras),
-        data.message,
-      ],
-    );
-    return { id: Number(rows[0]?.id ?? 0) };
+    rejectPhysicalBookingIntake();
   });
 
 export const unlockInbox = createServerFn({ method: "POST" })
