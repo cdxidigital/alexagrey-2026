@@ -26,7 +26,7 @@ export type InterestId = (typeof INTEREST_OPTIONS)[number]["id"];
 
 export function formatAUD(value: number): string {
   if (!Number.isSafeInteger(value) || value < 0) throw new Error("Invalid amount");
-  return new Intl.NumberFormat("en-AU", {
+  return "A" + new Intl.NumberFormat("en-AU", {
     style: "currency",
     currency: "AUD",
     maximumFractionDigits: 0,
