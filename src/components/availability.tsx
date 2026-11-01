@@ -1,37 +1,75 @@
+import { useEffect, useMemo, useState } from "react";
 import { Clock } from "lucide-react";
 import { weeklyHours } from "@/lib/site-data";
 import { FadeIn } from "@/components/fade-in";
 import { cn } from "@/lib/utils";
 
-function schedule() {
-  const todayIdx = new Date().getDay();
-  const today = weeklyHours[todayIdx]!;
-  const rest = [
-    ...weeklyHours.slice(todayIdx + 1),
-    ...weeklyHours.slice(0, todayIdx),
-  ];
-  return [{ day: "Today", hours: today.hours, isToday: true }, ...rest.map((d) => ({ ...d, isToday: false }))];
+const PERTH_TZ = "Australia/Perth";
+
+function perthNow() {
+  const parts = new Intl.DateTimeFormat("en-AU", {
+    timeZone: PERTH_TZ,
+    weekday: "short",
+    hour: "2-digit",
+    minute: "2-digit",
+    hourCycle: "h23",
+  }).formatToParts(new Date());
+
+  const weekday = parts.find((p) => p.type === "weekday")?.value ?? "Sun";
+  const hour = Number(parts.find((p) => p.type === "hour")?.value ?? "0");
+  const minute = Number(parts.find((p) => p.type === "minute")?.value ?? "0");
+  const dayIndex = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].indexOf(weekday);
+
+  return {
+    dayIndex: dayIndex < 0 ? 0 : dayIndex,
+    minutes: hour * 60 + minute,
+  };
 }
 
-function isOpenNow(hours: string) {
+function buildSchedule(dayIndex: number) {
+  const today = weeklyHours[dayIndex]!;
+  const rest = [
+    ...weeklyHours.slice(dayIndex + 1),
+    ...weeklyHours.slice(0, dayIndex),
+  ];
+
+  return [
+    { day: "Today", hours: today.hours },
+    ...rest.map((d) => ({ day: d.day, hours: d.hours })),
+  ];
+}
+
+function isOpenAt(hours: string, minutes: number) {
   if (hours.includes("24")) return true;
+
   const match = hours.match(/(\d{1,2}):(\d{2})\s*(AM|PM)/i);
   if (!match) return false;
+
   let h = Number(match[1]);
   const m = Number(match[2]);
   const ap = match[3].toUpperCase();
   if (ap === "PM" && h !== 12) h += 12;
   if (ap === "AM" && h === 12) h = 0;
-  const now = new Date();
-  const minutes = now.getHours() * 60 + now.getMinutes();
+
   const start = h * 60 + m;
-  // till late — treat as open until 4am next morning
   return minutes >= start || minutes < 4 * 60;
 }
 
 export function Availability() {
-  const rows = schedule();
-  const open = isOpenNow(rows[0]!.hours);
+  const [clock, setClock] = useState<{ dayIndex: number; minutes: number } | null>(null);
+
+  useEffect(() => {
+    const update = () => setClock(perthNow());
+    update();
+    const timer = window.setInterval(update, 60_000);
+    return () => window.clearInterval(timer);
+  }, []);
+
+  const rows = useMemo(
+    () => buildSchedule(clock?.dayIndex ?? 0),
+    [clock?.dayIndex],
+  );
+  const open = clock ? isOpenAt(rows[0]!.hours, clock.minutes) : false;
 
   return (
     <section
@@ -46,8 +84,7 @@ export function Availability() {
             When you can <span className="italic text-cream">see me</span>
           </h2>
           <p className="mt-4 max-w-sm font-sans text-sm font-light leading-relaxed text-muted">
-            Outcall only. Late nights are my favourite — weekends I’m available around
-            the clock. Please book ahead to secure your time.
+            Outcall only. Availability is indicative and subject to confirmation.
           </p>
           <p className="mt-6 inline-flex items-center gap-2 rounded-full border border-gold/30 bg-ink/40 px-4 py-2 text-xs text-gold">
             <Clock size={14} /> Times shown in Perth (AWST)
@@ -71,7 +108,7 @@ export function Availability() {
                     {row.day}
                     {open && i === 0 && (
                       <span className="rounded-full bg-gold px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wide text-ink">
-                        Now
+                        Within listed hours
                       </span>
                     )}
                   </span>

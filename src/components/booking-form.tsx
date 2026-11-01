@@ -45,9 +45,11 @@ export function BookingForm() {
       setStatus("success");
       setForm(empty);
       setPicked([]);
-    } catch {
+    } catch (err) {
       setStatus("idle");
-      setError("Something went wrong. Please try again in a moment.");
+      setError(err instanceof Error && err.message.includes("Too many requests")
+        ? "Too many enquiries were sent recently. Please try again later."
+        : "Something went wrong. Please try again in a moment.");
     }
   };
 
@@ -71,8 +73,7 @@ export function BookingForm() {
           <div className="mt-8 flex items-center gap-3 rounded-xl border border-gold/15 bg-ink/40 p-4">
             <Shield size={20} className="shrink-0 text-gold" />
             <p className="font-sans text-sm font-light leading-relaxed text-cream/80">
-              Outcall only. All enquiries are kept strictly confidential. Screening may
-              be required for new clients.
+              Outcall only. Enquiries are handled discreetly. Please avoid sharing sensitive personal information in this form.
             </p>
           </div>
         </FadeIn>
@@ -88,8 +89,7 @@ export function BookingForm() {
               </div>
               <p className="mt-6 label-text text-gold">Enquiry received</p>
               <p className="mt-3 max-w-sm font-sans text-sm font-light text-muted">
-                Thank you, gorgeous. Your enquiry has landed safely. I’ll be in touch
-                soon — keep an eye on your messages. xx
+                Your enquiry has been received. A response will follow if availability permits.
               </p>
               <button
                 type="button"
@@ -118,6 +118,7 @@ export function BookingForm() {
                     onChange={set("name")}
                     placeholder="How should I call you?"
                     autoComplete="name"
+                    required
                   />
                 </div>
                 <div>
@@ -132,6 +133,8 @@ export function BookingForm() {
                     onChange={set("phone")}
                     placeholder="Best number to text"
                     autoComplete="tel"
+                    type="tel"
+                    required
                   />
                 </div>
                 <div>
@@ -147,6 +150,7 @@ export function BookingForm() {
                     onChange={set("email")}
                     placeholder="you@email.com"
                     autoComplete="email"
+                    required
                   />
                 </div>
                 <div>
@@ -191,6 +195,7 @@ export function BookingForm() {
                     value={form.location}
                     onChange={set("location")}
                     placeholder="Suburb or hotel"
+                    required
                   />
                 </div>
               </div>
@@ -236,7 +241,7 @@ export function BookingForm() {
               </div>
 
               {error && (
-                <p data-testid="booking-error" className="mt-5 text-sm text-danger">
+                <p role="alert" data-testid="booking-error" className="mt-5 text-sm text-danger">
                   {error}
                 </p>
               )}

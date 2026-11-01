@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Eye, Lock, Play, X } from "lucide-react";
 import { media } from "@/lib/site-data";
 import { FadeIn } from "@/components/fade-in";
@@ -32,7 +32,9 @@ function Tile({
       {item.type === "image" ? (
         <img
           src={item.src}
-          alt="Ellie May gallery"
+          alt="Approved editorial gallery image"
+          loading="lazy"
+          decoding="async"
           className="h-full w-full object-cover transition-[filter,transform] duration-700 group-hover:scale-105"
           style={{
             filter: revealed ? "none" : "blur(26px)",
@@ -43,9 +45,9 @@ function Tile({
         <video
           src={item.src}
           muted
-          loop
           playsInline
-          autoPlay={revealed}
+          preload="none"
+          poster={media.heroImage}
           className="h-full w-full object-cover transition-[filter,transform] duration-700 group-hover:scale-105"
           style={{
             filter: revealed ? "none" : "blur(26px)",
@@ -66,6 +68,15 @@ export function Gallery() {
   const [revealed, setRevealed] = useState(false);
   const [open, setOpen] = useState<Item | null>(null);
 
+  useEffect(() => {
+    if (!open) return;
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setOpen(null);
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [open]);
+
   return (
     <section
       id="gallery"
@@ -78,7 +89,7 @@ export function Gallery() {
             <div>
               <p className="label-text">Gallery</p>
               <h2 className="mt-3 heading-serif text-4xl font-light md:text-5xl">
-                Recent & verified
+                Private gallery
               </h2>
               <p className="mt-3 max-w-md font-sans text-sm font-light text-muted">
                 Photos and clips are blurred for your discretion. Opt in to reveal.
@@ -139,6 +150,9 @@ export function Gallery() {
           className="fixed inset-0 z-[90] flex items-center justify-center bg-ink/95 p-4 backdrop-blur-xl"
           onClick={() => setOpen(null)}
           data-testid="gallery-lightbox"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Gallery media viewer"
         >
           <button
             type="button"
@@ -151,7 +165,7 @@ export function Gallery() {
           {open.type === "image" ? (
             <img
               src={open.src}
-              alt="Ellie May"
+              alt="Approved editorial gallery image"
               className="max-h-[88vh] max-w-full rounded-lg object-contain"
               onClick={(e) => e.stopPropagation()}
             />

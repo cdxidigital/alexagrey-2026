@@ -1,7 +1,6 @@
 import { useState, type FormEvent } from "react";
 import { createFileRoute, Link, Navigate } from "@tanstack/react-router";
 import { unlockInbox } from "@/lib/bookings";
-import { saveInboxToken } from "@/lib/inbox-session";
 import { profile } from "@/lib/site-data";
 
 export const Route = createFileRoute("/login")({ component: Login });
@@ -12,15 +11,14 @@ function Login() {
   const [pending, setPending] = useState(false);
   const [done, setDone] = useState(false);
 
-  if (done) return <Navigate to="/admin" />;
+  if (done) return <Navigate to="/studio" />;
 
   const submit = async (event: FormEvent) => {
     event.preventDefault();
     setPending(true);
     setError("");
     try {
-      const { token } = await unlockInbox({ data: { code } });
-      saveInboxToken(token);
+      await unlockInbox({ data: { code } });
       setDone(true);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Incorrect code.");
@@ -35,10 +33,10 @@ function Login() {
         onSubmit={submit}
         className="glass w-full max-w-sm rounded-2xl p-8 text-center"
       >
-        <p className="label-text">Admin inbox</p>
+        <p className="label-text">fleshsesh Studio</p>
         <h1 className="mt-3 heading-serif text-4xl font-light">{profile.name}</h1>
         <p className="mt-3 font-sans text-sm font-light text-muted">
-          Enter the access code to view booking enquiries.
+          Enter your authorised studio access code.
         </p>
         <label className="mt-8 block text-left">
           <span className="field-label">Access code</span>
@@ -60,7 +58,7 @@ function Login() {
           className="btn-gold mt-6 w-full"
           data-testid="admin-unlock"
         >
-          {pending ? "Checking…" : "Open inbox"}
+          {pending ? "Checking…" : "Open Studio"}
         </button>
         <Link to="/" className="mt-8 inline-block label-text text-muted hover:text-gold">
           Back to site

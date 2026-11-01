@@ -1,0 +1,306 @@
+/* Ellie May V5 | Obsidian & Gold
+   Editorial/public surfaces only. Does not style fleshsesh Studio.
+   Gold is an accent, not body-text colour. */
+.ellie-landing {
+  --e-ink: #080908;
+  --e-black: #080908;
+  --e-plum: #151610;
+  --e-merlot: #242318;
+  --e-rose: #d0ad66;
+  --e-gold: #d9b66f;
+  --e-champagne: #ead29c;
+  --e-porcelain: #141610;
+  --e-text: #f2eddf;
+  --e-subtle: #bcb29c;
+  --e-line: #cba65f52;
+  color: #f2eddf;
+  background: #080908;
+}
+.ellie-landing a:focus-visible,
+.ellie-landing button:focus-visible,
+.ellie-landing textarea:focus-visible {
+  outline: 3px solid #f5d889;
+  outline-offset: 4px;
+}
+.ellie-landing ::selection { background: #c8a458; color: #10120d; }
+.ellie-landing .ellie-topline {
+  background: linear-gradient(90deg,#18170f,#282419 46%,#18170f);
+  color: #ecd8ac;
+  border-bottom: 1px solid #b38e4c55;
+}
+.ellie-landing .ellie-live-dot { background: #f4d994; box-shadow: 0 0 9px #f0ca76a3; }
+.ellie-landing .ellie-top-divider { color: #dfc37e; }
+.ellie-landing .ellie-header {
+  background: #0b0c09ec;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid #b6955159;
+}
+.ellie-landing .ellie-header::after {
+  content:"";
+  position:absolute;
+  left:clamp(20px,5.5vw,104px);
+  right:clamp(20px,5.5vw,104px);
+  height:1px;
+  bottom:-1px;
+  background:linear-gradient(90deg,transparent,#ae8e4e 35%,#e4c984 51%,#ae8e4e 67%,transparent);
+  pointer-events:none;
+}
+.ellie-landing .ellie-monogram {
+  border:1px solid #d1af64;
+  background: radial-gradient(circle at 35% 25%,#383220,#151610 70%);
+  color:#f6dd9c;
+  box-shadow:0 0 0 4px #d1b36c12;
+}
+.ellie-landing .ellie-wordmark-name { color:#fbefce; }
+.ellie-landing .ellie-wordmark-name small { color:#bda978; }
+.ellie-landing .ellie-nav a { color:#c6baa0; }
+.ellie-landing .ellie-nav a:hover { color:#f6db8d; }
+.ellie-landing .ellie-header-cta {
+  color:#f0d28c; border-color:#b89b56b0;
+  background:linear-gradient(130deg,#1c1b14,#11120e);
+}
+.ellie-landing .ellie-header-cta:hover {
+  color:#11120d; background:#d9b66d;
+}
+.ellie-landing .ellie-menu-toggle {color:#eecf83}
+.ellie-landing .ellie-mobile-nav {background:#171811;border-bottom:1px solid #a68a4a}
+.ellie-landing .ellie-hero {border-bottom:1px solid #af8b4859}
+.ellie-landing .ellie-hero-text {
+  background:radial-gradient(ellipse at 18% 28%,#222318,#11120e 45%,#080908 90%);
+}
+.ellie-landing .ellie-eyebrow {color:#d7c081}
+.ellie-landing .ellie-hero-pretitle {color:#c7b58b}
+.ellie-landing .ellie-hero-title {color:#f7f0e3}
+.ellie-landing .ellie-hero-title em {
+  color:#e3bd74;
+  background:linear-gradient(120deg,#fff4d0 0%,#efcd83 30%,#a67e3d 56%,#f1d78f 82%,#c09a53);
+  background-clip:text;
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+.ellie-landing .ellie-hero-description {color:#cbc0ac}
+.ellie-landing .ellie-button-cream {
+  border:1px solid #f6dda2;
+  color:#14140f!important;
+  background:linear-gradient(110deg,#c5a05b,#f4d98e 50%,#b99048);
+  box-shadow:0 9px 24px #0005;
+}
+.ellie-landing .ellie-button-cream:hover {background:#fae8b8}
+.ellie-landing .ellie-text-link {color:#e4ca91!important}
+.ellie-landing .ellie-hero-bottom {color:#bfa977}
+.ellie-landing .ellie-hero-bottom-rule {background:#c4a363}
+.ellie-landing .ellie-hero-visual {
+  background:radial-gradient(ellipse at 54% 27%,#605235,#29291e 45%,#0d0e0a);
+}
+.ellie-landing .ellie-hero-img {
+  filter:saturate(.84) contrast(1.06);
+}
+.ellie-landing .ellie-hero-visual-frame {border-color:#f0d38b7b}
+.ellie-landing .ellie-hero-side-mark {color:#f0dbab}
+.ellie-landing .ellie-hero-visual-caption {border-top-color:#f2dca085;color:#f7e7be}
+.ellie-landing .ellie-hero-visual-shade {
+  background:linear-gradient(90deg,#0a0b084d,transparent 35%),linear-gradient(0deg,#090a08d1,transparent 42%);
+}
+.ellie-landing .ellie-marquee {
+  background:#c7a667;
+  color:#15170e;
+  border-top:1px solid #f2d694;
+  border-bottom:1px solid #765b29;
+}
+.ellie-landing .ellie-marquee b {color:#624d27}
+.ellie-landing .ellie-section-head {color:#c9b98e;border-color:#b18e504f}
+.ellie-landing .ellie-story {
+  color:#f1ebdf;
+  background:linear-gradient(180deg,#171811,#11120e);
+  border-bottom:1px solid #92774340;
+}
+.ellie-landing .ellie-flourish {color:#d9b368}
+.ellie-landing .ellie-story h2 {color:#f6eee2}
+.ellie-landing :is(.ellie-story h2,.ellie-collection h2,.ellie-approach h2,.ellie-finale h2) em {color:#dbb86a}
+.ellie-landing .ellie-story-copy .ellie-story-lead {color:#e9dec4}
+.ellie-landing .ellie-story-copy p {color:#bdb4a1}
+.ellie-landing .ellie-underlined-link {color:#f2db9c!important;border-color:#bd9b57}
+.ellie-landing .ellie-collection {
+  background:radial-gradient(ellipse at 100% 0%,#26261a,transparent 53%),#0b0c09;
+  border-bottom:1px solid #b895514d;
+}
+.ellie-landing .ellie-collection h2 {color:#f7efdf}
+.ellie-landing .ellie-collection-intro p {color:#bdb29e}
+.ellie-landing .ellie-button-outline {color:#ecd39b;border-color:#ad8d4ca8}
+.ellie-landing .ellie-button-outline:hover {background:#b796464d}
+.ellie-landing .ellie-collection-actions p,.ellie-landing .ellie-media-note {color:#bfb298}
+.ellie-landing .ellie-image-tile,
+.ellie-landing .ellie-film-tile {
+  border:1px solid #b799584a;
+  background:linear-gradient(150deg,#28271c,#0e0f0c);
+  box-shadow:0 16px 45px #0008;
+}
+.ellie-landing .ellie-image-tile::before,
+.ellie-landing .ellie-film-tile::before {
+  content:"";
+  position:absolute;
+  inset:11px;
+  z-index:3;
+  pointer-events:none;
+  border:1px solid #dfbb6d4a;
+}
+.ellie-landing .ellie-image-placeholder {
+  background:radial-gradient(circle at 42% 23%,#bca26e,#5b5032 45%,#171811 90%);
+}
+.ellie-landing .ellie-image-placeholder span {color:#f2ddb075}
+.ellie-landing .ellie-film-backdrop {
+  background:linear-gradient(135deg,#554b2f,#161811 80%);
+}
+.ellie-landing .ellie-film-1 .ellie-film-backdrop {background:linear-gradient(135deg,#3c3d2a,#867148)}
+.ellie-landing .ellie-film-2 .ellie-film-backdrop {background:linear-gradient(135deg,#918053,#242419)}
+.ellie-landing .ellie-film-backdrop span {color:#e7c9897c}
+.ellie-landing .ellie-film-play {border-color:#f5deaa;background:#10120bcc;color:#f6e5bf}
+.ellie-landing .ellie-film-tile:not(:disabled):hover .ellie-film-play {
+  background:#d8b66f;color:#15160f;
+}
+.ellie-landing .ellie-tile-footer small,
+.ellie-landing .ellie-film-footer small {color:#e5c88e}
+.ellie-landing .ellie-approach {background:#11120f}
+.ellie-landing .ellie-approach h2 {color:#f4eadb}
+.ellie-landing .ellie-approach-heading>p {color:#bdb29d}
+.ellie-landing .ellie-values article {border-color:#c7a96588}
+.ellie-landing .ellie-value-icon {color:#e1bf72}
+.ellie-landing .ellie-value-number {color:#bda670}
+.ellie-landing .ellie-values h3 {color:#eeddba}
+.ellie-landing .ellie-values p {color:#bcb3a3}
+.ellie-landing .ellie-finale {
+  background:linear-gradient(135deg,#dec58d,#b99855 54%,#917236);
+  color:#161710;
+}
+.ellie-landing .ellie-finale .ellie-eyebrow {color:#644b23}
+.ellie-landing .ellie-finale h2 {color:#191910}
+.ellie-landing .ellie-finale h2 em {color:#685026}
+.ellie-landing .ellie-finale-text>p:not(.ellie-eyebrow) {color:#53452f}
+.ellie-landing .ellie-button-dark {background:#151710;border-color:#151710;color:#f5dda2!important}
+.ellie-landing .ellie-button-dark:hover {background:#333224}
+.ellie-landing .ellie-finale-card {
+  background:linear-gradient(155deg,#222319,#0c0d0a);
+  border:1px solid #ac8b4b;
+  color:#e8d5ab;
+  box-shadow:0 26px 55px #34250b55;
+}
+.ellie-landing .ellie-finale-orbit {color:#d9bb7c88;border-color:#d9bc7f80}
+.ellie-landing .ellie-finale-card>div {border-top-color:#c4a25f75}
+.ellie-landing .ellie-footer {background:#080908}
+.ellie-landing .ellie-footer-brand>span {color:#f1e2bd}
+.ellie-landing .ellie-footer-brand em {color:#e2bc74}
+.ellie-landing .ellie-footer-right span {color:#e0bf7a}
+.ellie-landing .ellie-footer-brand p,
+.ellie-landing .ellie-footer-right p,
+.ellie-landing .ellie-footer-line {color:#b7ad96}
+.ellie-landing .ellie-footer-line {border-color:#a0844f61}
+.ellie-landing .ellie-film-modal {background:#080906f5}
+.ellie-landing .ellie-film-close {border-color:#d8b86e;color:#f4deb0;background:#14140e}
+/* Both the editorial and approved informational website share this pricing panel. */
+.ellie-estimator {
+  color:#f2e9d9;
+  background:linear-gradient(180deg,#191a13,#11120d 83%,#151610);
+  border-top:1px solid #b5965155;
+  border-bottom:1px solid #b5965155;
+}
+.ellie-estimator .ellie-eyebrow {color:#e1c37e}
+.ellie-estimator-intro h2 {color:#f8f0df}
+.ellie-estimator-intro h2 em {color:#e3bf70}
+.ellie-estimator-intro>p:not(.ellie-eyebrow) {color:#c6baa5}
+.ellie-estimator-review {
+  color:#ead6a7;background:#2b291b;border-left-color:#d9b56e;
+}
+.ellie-estimator-fieldset legend {color:#f2ead9}
+.ellie-estimator-fieldset legend span {
+  color:#141610;
+  background:linear-gradient(130deg,#b99553,#f4d98f);
+}
+.ellie-estimator-interests p {color:#bdb19d}
+.ellie-duration {
+  background:#191a14;color:#eee0be;border-color:#806a3e;
+}
+.ellie-duration strong {color:#f2d68d}
+.ellie-duration:hover {border-color:#ddbb71}
+.ellie-duration.is-selected {
+  background:linear-gradient(140deg,#4b422b,#292719 75%);
+  border-color:#f0cd7e;box-shadow:0 0 0 3px #d5b36a24;
+}
+.ellie-interest {
+  background:#1a1b14;color:#e5d5b1;border-color:#78643a;
+}
+.ellie-interest:hover {border-color:#e1c17a}
+.ellie-interest.is-selected {
+  color:#13150e;border-color:#e5c47e;
+  background:linear-gradient(120deg,#b99657,#f1d78e);
+}
+.ellie-estimator-summary {
+  border:1px solid #d9b86b;
+  color:#f3e8cf;
+  background:linear-gradient(150deg,#232419,#0c0d0a 78%);
+  box-shadow:0 25px 60px #0009,inset 0 0 0 5px #e1bd7213;
+}
+.ellie-estimator-summary::before {
+  content:"";position:absolute;inset:11px;
+  border:1px solid #cbab6340;pointer-events:none;
+}
+.ellie-estimator-summary-top .ellie-eyebrow,
+.ellie-estimator-summary-top>span:last-child {color:#d8bc81}
+.ellie-summary-name {color:#ddc890}
+.ellie-summary-value>span {
+  color:#f3dd9f;
+  background:linear-gradient(90deg,#fff1c5,#d5ae60 57%,#f7dc95);
+  -webkit-background-clip:text;background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+.ellie-summary-value>small {color:#d7bd82}
+.ellie-estimator-rule {background:#c19a536b}
+.ellie-summary-details dt,.ellie-estimator-notice {color:#c9bda3}
+.ellie-summary-details dd {color:#f0e3c4}
+.ellie-copy-summary,.ellie-direct-contact {
+  border-color:#f6dfa5;
+  color:#15140e;
+  background:linear-gradient(120deg,#bd9753,#f2d58c 52%,#c3a05a);
+}
+.ellie-copy-summary:hover,.ellie-direct-contact:hover {background:#fae3aa}
+.ellie-contact-pending,.ellie-estimator-footnote {color:#b6aa93}
+.ellie-estimator-manual {color:#d4c096}
+.ellie-estimator-manual textarea {background:#10110c;color:#efe7d8;border-color:#997e44}
+/* The entry screen uses the same brand palette; it remains a disclaimer, not age verification. */
+.ellie-age-overlay {
+  color:#f1e6d0;
+  background:radial-gradient(ellipse at 70% 20%,#44402c 0%,transparent 47%),#0a0b09;
+}
+.ellie-age-card {background:#15160fe8;border-color:#b49856;box-shadow:0 35px 180px #000b}
+.ellie-age-top,.ellie-age-bottom {border-color:#b6945145;color:#dac392}
+.ellie-age-mark {border-color:#d5b26f;color:#f3dfaf}
+.ellie-age-eyebrow {color:#d4bd81}
+.ellie-age-inner h1 {color:#f6ebd8}
+.ellie-age-inner h1 em {color:#e8c780}
+.ellie-age-inner>p:not(.ellie-age-eyebrow):not(.ellie-age-disclaimer) {color:#c1b69e}
+.ellie-age-actions button {
+  background:linear-gradient(110deg,#be9854,#f2d78e 51%,#c4a05b);
+  border-color:#f5dfa7;color:#14140e;
+}
+.ellie-age-actions button:hover {background:#fce9b8}
+.ellie-age-actions a {color:#dbc78f}
+.ellie-age-disclaimer {color:#b3a78b}
+@media(max-width:940px){
+  .ellie-landing .ellie-hero {display:flex;flex-direction:column;min-height:0}
+  .ellie-landing .ellie-hero-text {min-height:550px}
+  .ellie-landing .ellie-hero-visual {min-height:530px}
+}
+@media(max-width:630px){
+  .ellie-landing .ellie-hero-text {min-height:570px}
+  .ellie-landing .ellie-hero-title {font-size:clamp(85px,20vw,121px)}
+  .ellie-landing .ellie-hero-title em {margin-left:clamp(25px,8vw,66px)}
+  .ellie-landing .ellie-hero-visual {min-height:420px}
+  .ellie-estimator {padding:70px 20px}
+  .ellie-estimator-summary::before {inset:8px}
+}
+@media(prefers-reduced-motion:reduce){
+  .ellie-landing *,.ellie-estimator *,.ellie-age-overlay * {
+    animation-duration:.01ms!important;
+    transition-duration:.01ms!important;
+  }
+}
