@@ -948,3 +948,105 @@
 @media(prefers-reduced-motion:reduce) {
   .ellie-age-overlay * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
 }
+
+/* Ellie May: independent rate-and-interest guide. No checkout or form. */
+.ellie-estimator {
+  background: #eee1dd;
+  color: #32212a;
+  padding: clamp(70px, 8vw, 120px) clamp(20px, 7.5vw, 135px);
+}
+.ellie-estimator .ellie-eyebrow { color: #855c6b; }
+.ellie-estimator-intro { max-width: 780px; margin-bottom: 50px; }
+.ellie-estimator-intro h2 {
+  margin: 26px 0 22px;
+  font: 400 clamp(64px, 7.5vw, 118px)/.98 "Cormorant Garamond", Georgia, serif;
+  letter-spacing: -.055em;
+}
+.ellie-estimator-intro h2 em { color: #a57587; font-weight: 300; }
+.ellie-estimator-intro > p:not(.ellie-eyebrow) { color: #715661; font-size: 14px; line-height: 1.85; max-width: 670px; }
+.ellie-estimator-review {
+  display: flex; gap: 10px; align-items: center; max-width: 660px;
+  padding: 13px 16px; border-left: 3px solid #9c5e76;
+  background: #e6d0ce; color: #604355; font: 600 12px/1.65 "Manrope", sans-serif;
+}
+.ellie-estimator-grid { display: grid; grid-template-columns: minmax(0, 1.12fr) minmax(330px, .88fr); gap: clamp(24px, 3.4vw, 54px); align-items: start; }
+.ellie-estimator-controls { min-width: 0; }
+.ellie-estimator-fieldset { border: 0; margin: 0 0 36px; padding: 0; min-width: 0; }
+.ellie-estimator-fieldset legend { margin: 0 0 22px; font-size: 12px; font-weight: 700; letter-spacing: .02em; }
+.ellie-estimator-fieldset legend span {
+  display: inline-grid; place-items: center; margin-right: 12px;
+  height: 27px; width: 27px; border-radius: 50%;
+  background: #583748; color: #fbece8; font-size: 10px;
+}
+.ellie-duration-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.ellie-duration {
+  min-height: 112px; border: 1px solid #cbaeb4; padding: 20px;
+  display: flex; flex-direction: column; align-items: flex-start; justify-content: space-between;
+  background: #f5ede9; color: #4f3242; text-align: left;
+  transition: background .2s ease, border-color .2s ease, transform .2s ease;
+}
+.ellie-duration > span { font-size: 12px; font-weight: 550; }
+.ellie-duration > strong { font: 400 36px/1 "Cormorant Garamond", Georgia, serif; }
+.ellie-duration:hover { transform: translateY(-2px); border-color: #7e4f65; }
+.ellie-duration.is-selected { border: 2px solid #72465e; padding: 19px; background: #e4c5cc; }
+.ellie-estimator-interests p { margin: -10px 0 21px; color: #715661; font-size: 12px; line-height: 1.75; }
+.ellie-interest-grid { display: flex; flex-wrap: wrap; gap: 10px; }
+.ellie-interest {
+  display: inline-flex; align-items: center; gap: 9px; min-height: 46px;
+  padding: 10px 14px; border: 1px solid #bea0ac; border-radius: 25px;
+  background: #f6eeea; color: #4f3442; text-align: left;
+  font-size: 12px; transition: background .2s, border-color .2s;
+}
+.ellie-interest:hover { border-color: #6e4659; }
+.ellie-interest.is-selected { background: #573747; color: #f9ece7; border-color: #573747; }
+.ellie-interest-check { display: inline-grid; place-items: center; flex-shrink: 0; width: 18px; height: 18px; border: 1px solid currentColor; border-radius: 50%; font-size: 14px; line-height: 1; }
+.ellie-estimator-summary {
+  position: sticky; top: 20px; min-width: 0; padding: clamp(26px, 4vw, 46px);
+  background: linear-gradient(155deg, #3e2836 0%, #21131e 70%, #1b1119 100%);
+  color: #f9ece7; border: 1px solid #866076;
+}
+.ellie-estimator-summary-top { display: flex; flex-wrap: wrap; gap: 10px; justify-content: space-between; align-items: center; }
+.ellie-estimator-summary-top .ellie-eyebrow { color: #dec2ca; font-size: 9px; }
+.ellie-estimator-summary-top > span:last-child { font-size: 9px; letter-spacing: .12em; color: #bba0ad; }
+.ellie-summary-name { margin: 41px 0 14px; color: #d7bbc5; font: italic 400 27px/1.1 "Cormorant Garamond", Georgia, serif; }
+.ellie-summary-value { display: flex; flex-direction: column; gap: 10px; }
+.ellie-summary-value > span { display: block; font: 400 clamp(66px, 6vw, 101px)/.95 "Cormorant Garamond", Georgia, serif; letter-spacing: -.04em; }
+.ellie-summary-value > small { font-size: 9px; font-weight: 700; letter-spacing: .17em; color: #d6bac5; }
+.ellie-estimator-rule { height: 1px; background: #e9c5ce48; margin: 29px 0; }
+.ellie-summary-details { margin: 0; display: grid; gap: 14px; }
+.ellie-summary-details > div { display: flex; align-items: start; justify-content: space-between; gap: 20px; font-size: 12px; }
+.ellie-summary-details dt { color: #c5a9b6; flex: 0 0 80px; }
+.ellie-summary-details dd { margin: 0; color: #f6e6e2; text-align: right; line-height: 1.5; }
+.ellie-estimator-notice { color: #e0c7ce; margin: 29px 0 21px; font-size: 12px; line-height: 1.7; }
+.ellie-copy-summary, .ellie-direct-contact {
+  display: flex; align-items: center; gap: 11px; justify-content: space-between;
+  width: 100%; min-height: 50px; padding: 12px 15px; border: 1px solid #f0ddd6;
+  background: #ecded8; color: #301e29; cursor: pointer;
+  font-weight: 700; font-size: 12px; text-decoration: none;
+}
+.ellie-copy-summary:hover, .ellie-direct-contact:hover { background: #fff7f1; }
+.ellie-direct-contact { margin-top: 10px; background: #c39ba9; }
+.ellie-contact-pending { color: #c6abb8; font-size: 11px; line-height: 1.7; margin: 18px 0 0; }
+.ellie-estimator-manual { margin-top: 20px; color: #e6ccd4; font-size: 11px; }
+.ellie-estimator-manual summary { cursor: pointer; min-height: 35px; display: flex; align-items: center; }
+.ellie-estimator-manual textarea {
+  display: block; width: 100%; min-height: 170px; resize: vertical; box-sizing: border-box;
+  border: 1px solid #dcbac27d; background: #150d14; color: #f2e0de;
+  padding: 12px; font: 12px/1.65 "Manrope", system-ui, sans-serif;
+}
+.ellie-estimator-footnote { margin: 25px 0 0; color: #aa8e9b; font-size: 10px; line-height: 1.85; }
+@media(max-width:1020px) {
+  .ellie-estimator-grid { grid-template-columns: 1fr; }
+  .ellie-estimator-summary { position: static; max-width: 750px; }
+}
+@media(max-width:590px) {
+  .ellie-estimator { padding: 70px 20px; }
+  .ellie-estimator-intro h2 { font-size: clamp(60px, 14vw, 82px); }
+  .ellie-duration { min-height: 100px; padding: 14px; }
+  .ellie-duration.is-selected { padding: 13px; }
+  .ellie-duration > strong { font-size: 31px; }
+  .ellie-interest-grid { gap: 8px; }
+  .ellie-interest { font-size: 11px; }
+  .ellie-estimator-summary { padding: 26px; }
+  .ellie-summary-value > span { font-size: 73px; }
+}
