@@ -88,7 +88,7 @@ function Home() {
 
   return (
     <main id="main-content" className="bg-ink">
-      <Navbar />
+      <Navbar showRateEstimate={mode.rateCardVisible && Boolean(mode.rateTable)} />
       <Hero />
       {!mode.commercialEnabled && (
         <div role="status" className="border-y border-gold/20 bg-surface px-6 py-5 text-center text-sm text-gold-light">
