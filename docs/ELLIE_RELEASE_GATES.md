@@ -6,9 +6,9 @@
 
 ## Current behavior
 
-- If any required approval is absent, the public landing page is an editorial holding page: no rates, service catalogue, gallery, or booking form.
+- If required publication approvals are absent, the public homepage is a non-commercial editorial landing page. The design uses original media; each image/video still requires content classification and applicable access controls before public release. There are no rates, service catalogue or booking forms on the default public page.
 - When `ELLIE_ALLOW_STUDIO_PREVIEW=true`, only a staff member with a valid signed HttpOnly studio cookie can view the full draft. This is a review surface, not publication approval. The booking endpoint remains disabled.
-- Only when all required creator, legal, age-assurance and database flags pass is the commercial site rendered and enquiry submission enabled server-side.
+- Only when the required creator, legal, age-assurance and database flags pass may the more detailed informational website render. **In-person booking submission remains blocked on the server regardless of flags,** because fleshsesh is contracted for digital publishing only.
 - An age self-declaration alone does **not** establish adequate age assurance; the sign-off flag must remain disabled until the real gate has been implemented and reviewed.
 - Site metadata defaults to `noindex,nofollow,noarchive,nosnippet` pending a separate search/advertising review.
 
@@ -37,15 +37,15 @@ The authenticated `/studio` page now presents a read-only readiness board, four 
 
 - The database-backed limiter has per-client and global limits. Client identifiers are HMACs; raw client IPs are not written to the rate-limit table.
 - Studio login: five attempts per client per 15 minutes, maximum 120 global attempts per window.
-- Public enquiries: three per client per hour, maximum 600 global attempts per window.
+- The former public-enquiry rate-limit policy remains in the source for legacy compatibility, but the booking submission endpoint is now disabled before it can process or store appointment requests. This endpoint is not part of the digital-only service.
 - Sensitive server functions send `Cache-Control: no-store`.
 - Staff auth is enforced server-side for list and write operations. The studio cookie is signed and HttpOnly.
 - The inbox intentionally returns the newest 200 enquiries; pagination and a retention/deletion workflow remain to be built.
-- Before live intake, confirm encryption/storage region, privacy notices, access logs, data subject requests, retention/deletion processes, incident reporting ownership and secure backup/restore procedures.
+- The existing inbox holds legacy booking records only, not a newly authorised physical-services intake. Before retention or deletion decisions, confirm lawful requirements and preservation needs. For digital publishing, separately review access logs, profile data, privacy notices, backup/restore and content complaints.
 
 ## Legal/creator checks prior to switching on commercial site
 
-1. Obtain documented, current agreement from Ellie May covering each media asset, approved copy, fees, agency work, distribution channels, revocation procedure and any AI/synthetic representation disclosure.
+1. Obtain a digital-only service agreement from Ellie May covering each asset, approved copy, fees for genuine digital work, distribution channels, revocation, ownership and any AI/synthetic representation disclosure. Exclude in-person bookings, payments, physical rate-setting, recruitment and physical-service commissions.
 2. Have Australian counsel review the actual offering and advertisement in each relevant state/territory, particularly the difference between public image display, adult-content publishing, escort/service advertising, and agency management. Do not assume one approval applies to every jurisdiction or channel.
 3. Decide and test the required age-assurance technology; self-declaration and gallery blur alone are not certification.
 4. Confirm platform restrictions (Vercel, CDN, photo hosts, email, payments) and their terms.
@@ -67,7 +67,7 @@ npm run build
 
 The PR includes an Actions workflow that regenerates the lock, tests and builds, then commits the lock only when every step passes. As of this review, GitHub Actions reported failed jobs **with no runner assigned and no steps executed**, so these checks cannot be marked passed. Verify Actions billing/runner availability and inspect the first job error before enabling that workflow again.
 
-For manual testing, verify anonymous booking RPC denial; authorised studio login; incorrect-code throttling; cross-user denial; cookie HttpOnly/Secure; CSRF same-origin checks; real Postgres persistence through redeployment; media 18+ access; and mobile screen widths from 320px through desktop.
+For manual testing, verify **all** anonymous/authenticated booking RPC calls are denied even when publication flags are true; no booking form is mounted; authorised studio login; incorrect-code throttling; cross-user denial; cookie HttpOnly/Secure; CSRF same-origin checks; media 18+ access; and mobile screen widths from 320px through desktop.
 
 ## Rollback
 
