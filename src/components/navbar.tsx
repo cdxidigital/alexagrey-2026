@@ -3,7 +3,7 @@ import { Menu, X } from "lucide-react";
 import { navLinks, profile, scrollToId } from "@/lib/site-data";
 import { cn } from "@/lib/utils";
 
-export function Navbar() {
+export function Navbar({ showRateEstimate = false }: { showRateEstimate?: boolean }) {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
 
@@ -49,7 +49,7 @@ export function Navbar() {
 
         <nav className="ml-auto hidden items-center lg:flex">
           <div className="flex items-center gap-8">
-            {navLinks.map((link) => (
+            {navLinks.filter((link) => showRateEstimate || link.href !== "#estimate").map((link) => (
               <button
                 key={link.href}
                 type="button"
