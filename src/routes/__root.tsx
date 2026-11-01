@@ -3,7 +3,7 @@ import { AuthProvider } from "@/lib/auth/provider";
 import { PreviewHostBridge } from "@/components/preview-host-bridge";
 import appCss from "../styles.css?url";
 
-const APP_NAME = "Ellie May | The Private Edition";
+const APP_NAME = "Ellie May | Obsidian & Gold";
 
 export const Route = createRootRoute({
   head: () => ({
@@ -11,7 +11,7 @@ export const Route = createRootRoute({
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: APP_NAME },
-      { name: "theme-color", content: "#050505" },
+      { name: "theme-color", content: "#080908" },
       { name: "description", content: "Ellie May — creator-led editorial presence. Commercial content is subject to publication approval." },
       { name: "robots", content: "noindex, nofollow, noarchive, nosnippet" },
       { name: "referrer", content: "strict-origin-when-cross-origin" },
