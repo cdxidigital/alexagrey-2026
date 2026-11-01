@@ -8,15 +8,18 @@ import {
   formatAUD,
   type DurationId,
   type InterestId,
+  type RateTable,
 } from "@/lib/ellie-rate-estimator";
 
 type Props = {
+  rateTable: RateTable;
   /** Only true following server-side publication approval, or a staff-only review. */
   previewOnly?: boolean;
   directContactUrl?: string | null;
 };
 
 export function EllieRateCalculator({
+  rateTable,
   previewOnly = false,
   directContactUrl = null,
 }: Props) {
@@ -24,11 +27,13 @@ export function EllieRateCalculator({
   const [interests, setInterests] = useState<InterestId[]>(["availability"]);
   const [copyState, setCopyState] = useState<"idle" | "done" | "manual">("idle");
 
-  const estimate = useMemo(() => estimateInterest(duration, interests), [duration, interests]);
+  const estimate = useMemo(() => estimateInterest(duration, interests, rateTable), [duration, interests, rateTable]);
   const message = useMemo(
-    () => buildIndependentEnquiryText(duration, interests),
-    [duration, interests],
+    () => buildIndependentEnquiryText(duration, interests, rateTable),
+    [duration, interests, rateTable],
   );
+
+  const formatRate = (price: number | null) => price === null ? "Ask Ellie" : formatAUD(price);
 
   const toggleInterest = (id: InterestId) => {
     setInterests((previous) => previous.includes(id)
@@ -80,7 +85,7 @@ export function EllieRateCalculator({
                   onClick={() => { setDuration(option.id); setCopyState("idle"); }}
                 >
                   <span>{option.label}</span>
-                  <strong>{option.baseAUD === null ? "Ask Ellie" : formatAUD(option.baseAUD)}</strong>
+                  <strong>{formatRate(rateTable[option.id])}</strong>
                 </button>
               ))}
             </div>
