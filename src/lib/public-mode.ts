@@ -1,7 +1,7 @@
 import { createServerFn } from "@tanstack/react-start";
 import { setResponseHeader } from "@tanstack/react-start/server";
 
-/** Only simple booleans are returned; approval configuration stays server-side. */
+/** Response includes price figures only after server-side publication or signed-in staff approval. */
 export const getPublicationMode = createServerFn({ method: "GET" }).handler(
   async () => {
     setResponseHeader("Cache-Control", "no-store");
