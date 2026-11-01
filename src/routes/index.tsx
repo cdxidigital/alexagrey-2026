@@ -9,7 +9,7 @@ import { About } from "@/components/about";
 import { Services } from "@/components/services";
 import { Gallery } from "@/components/gallery";
 import { Availability } from "@/components/availability";
-import { Rates } from "@/components/rates";
+import { EllieRateCalculator } from "@/components/ellie-rate-calculator";
 import { SiteFooter } from "@/components/footer";
 import { getPublicationMode } from "@/lib/public-mode";
 
@@ -20,6 +20,9 @@ const AGE_KEY = "ag-age-ok";
 type PublicationMode = {
   fullSite: boolean;
   commercialEnabled: boolean;
+  rateCardVisible: boolean;
+  rateCardPublished: boolean;
+  directContactUrl: string | null;
 };
 
 function Home() {
@@ -43,7 +46,7 @@ function Home() {
         if (active) setMode(value);
       })
       .catch(() => {
-        if (active) setMode({ fullSite: false, commercialEnabled: false });
+        if (active) setMode({ fullSite: false, commercialEnabled: false, rateCardVisible: false, rateCardPublished: false, directContactUrl: null });
       });
     return () => {
       active = false;
@@ -70,7 +73,15 @@ function Home() {
     );
   }
 
-  if (!mode.fullSite) return <EditorialPreview />;
+  if (!mode.fullSite) {
+    return (
+      <EditorialPreview
+        showRateEstimator={mode.rateCardVisible}
+        estimatorPreviewOnly={!mode.rateCardPublished}
+        directContactUrl={mode.directContactUrl}
+      />
+    );
+  }
 
   return (
     <main id="main-content" className="bg-ink">
@@ -86,7 +97,12 @@ function Home() {
       <Services />
       <Gallery />
       <Availability />
-      <Rates />
+      {mode.rateCardVisible && (
+        <EllieRateCalculator
+          previewOnly={!mode.rateCardPublished}
+          directContactUrl={mode.directContactUrl}
+        />
+      )}
       <section id="contact" className="mx-auto max-w-7xl px-6 py-20 text-center">
         <p className="label-text">{mode.commercialEnabled ? "Independent enquiries" : "Studio preview"}</p>
         <h2 className="mt-4 heading-serif text-4xl">
