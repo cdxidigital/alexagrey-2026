@@ -93,7 +93,7 @@ export function EditorialPreview({
           {sections.map((item) => (
             <a href={item.href} key={item.href}>{item.label}</a>
           ))}
-          {showRateEstimator && <a href="#estimate">Rates & estimate</a>}
+          {showRateEstimator && rateTable && <a href="#estimate">Rates & estimate</a>}
         </nav>
         <a href="#editorial" className="ellie-header-cta">
           Explore the edition <ArrowUpRight size={16} aria-hidden="true" />
@@ -114,7 +114,7 @@ export function EditorialPreview({
           {sections.map((item) => (
             <a href={item.href} key={item.href} onClick={() => setMobileOpen(false)}>{item.label}</a>
           ))}
-          {showRateEstimator && (
+          {showRateEstimator && rateTable && (
             <a href="#estimate" onClick={() => setMobileOpen(false)}>Rates & estimate</a>
           )}
           <a href="#finale" onClick={() => setMobileOpen(false)}>The next chapter</a>
