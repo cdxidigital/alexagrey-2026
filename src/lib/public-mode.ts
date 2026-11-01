@@ -16,10 +16,15 @@ export const getPublicationMode = createServerFn({ method: "GET" }).handler(
     // Only a signed-in staff preview can inspect unapproved pricing.
     // Without it, unpublished amounts are never returned to the client UI.
     const reviewOnly = fullSite && !commercialEnabled;
+    const rateCardVisible = rateCardPublished || reviewOnly;
+    const rateTable = rateCardVisible
+      ? (await import("@/lib/ellie-rate-card.server")).getDraftRateTable()
+      : null;
     return {
       fullSite,
       commercialEnabled,
-      rateCardVisible: rateCardPublished || reviewOnly,
+      rateCardVisible,
+      rateTable,
       rateCardPublished,
       directContactUrl: rateCardPublished ? getApprovedCreatorContactUrl() : null,
     };
