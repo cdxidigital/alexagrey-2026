@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { ArrowDown, ArrowUpRight, Film, Menu, Play, X } from "lucide-react";
 import { media } from "@/lib/site-data";
 import { EllieRateCalculator } from "@/components/ellie-rate-calculator";
+import type { RateTable } from "@/lib/ellie-rate-estimator";
 
 const sections = [
   { label: "The introduction", href: "#story" },
@@ -24,10 +25,12 @@ export function EditorialPreview({
   showRateEstimator = false,
   estimatorPreviewOnly = false,
   directContactUrl = null,
+  rateTable = null,
 }: {
   showRateEstimator?: boolean;
   estimatorPreviewOnly?: boolean;
   directContactUrl?: string | null;
+  rateTable?: RateTable | null;
 }) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [showMedia, setShowMedia] = useState(false);
@@ -276,8 +279,9 @@ export function EditorialPreview({
         </div>
       </section>
 
-      {showRateEstimator && (
+      {showRateEstimator && rateTable && (
         <EllieRateCalculator
+          rateTable={rateTable}
           previewOnly={estimatorPreviewOnly}
           directContactUrl={directContactUrl}
         />
