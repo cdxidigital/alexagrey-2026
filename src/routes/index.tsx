@@ -10,7 +10,6 @@ import { Services } from "@/components/services";
 import { Gallery } from "@/components/gallery";
 import { Availability } from "@/components/availability";
 import { Rates } from "@/components/rates";
-import { BookingForm } from "@/components/booking-form";
 import { SiteFooter } from "@/components/footer";
 import { getPublicationMode } from "@/lib/public-mode";
 
@@ -88,17 +87,17 @@ function Home() {
       <Gallery />
       <Availability />
       <Rates />
-      {mode.commercialEnabled ? (
-        <BookingForm />
-      ) : (
-        <section id="booking" className="mx-auto max-w-7xl px-6 py-20 text-center">
-          <p className="label-text">Studio preview</p>
-          <h2 className="mt-4 heading-serif text-4xl">Enquiries are paused</h2>
-          <p className="mx-auto mt-4 max-w-lg text-sm leading-7 text-muted">
-            The enquiry form becomes available only after creator, legal, and age-assurance sign-off.
-          </p>
-        </section>
-      )}
+      <section id="contact" className="mx-auto max-w-7xl px-6 py-20 text-center">
+        <p className="label-text">{mode.commercialEnabled ? "Independent enquiries" : "Studio preview"}</p>
+        <h2 className="mt-4 heading-serif text-4xl">
+          {mode.commercialEnabled ? "Ellie manages her own enquiries" : "Enquiries are paused"}
+        </h2>
+        <p className="mx-auto mt-4 max-w-lg text-sm leading-7 text-muted">
+          {mode.commercialEnabled
+            ? "All appointments, availability decisions and in-person payments are managed independently by Ellie May. This website does not collect or arrange bookings."
+            : "Direct contact information may be published after Ellie May approves the channel and the necessary publication reviews are complete. No appointments or payments are accepted here."}
+        </p>
+      </section>
       <SiteFooter />
     </main>
   );
