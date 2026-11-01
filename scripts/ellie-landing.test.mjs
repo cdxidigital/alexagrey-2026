@@ -28,7 +28,8 @@ test("original-site image and all three film assets are retained", () => {
 test("non-commercial landing excludes booking and explicit rates", () => {
   assert.doesNotMatch(landing, /BookingForm|Rates|submitEnquiry|durationOptions|pseIncludes|services\.map/);
   assert.match(landing, /No bookings or offers are available/);
-  assert.match(page, /if \(!mode\.fullSite\) return <EditorialPreview/);
+  assert.match(page, /if \(!mode\.fullSite\)/);
+  assert.match(landing, /showRateEstimator/);
   assert.match(page, /mode\.commercialEnabled/);
 });
 
