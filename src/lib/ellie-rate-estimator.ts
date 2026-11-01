@@ -1,15 +1,14 @@
 /**
- * Ellie May's draft rate-card figures, transcribed from the existing site.
+ * Pure, price-agnostic logic for independently prepared enquiries.
  *
- * These are NOT legal/publication approval and are not a booking offer.
- * Only the creator can confirm current rates, extras, availability and total cost.
- * Do not extrapolate a third hour or invent prices for unpriced arrangements.
+ * Actual amounts are supplied by an authenticated/publishing-approved server
+ * response, never hard-coded into the public client-side bundle.
  */
 export const DURATION_OPTIONS = [
-  { id: "30m", label: "30 minutes", minutes: 30, baseAUD: 500 },
-  { id: "60m", label: "1 hour", minutes: 60, baseAUD: 800 },
-  { id: "120m", label: "2 hours", minutes: 120, baseAUD: 1500 },
-  { id: "custom", label: "Longer / custom", minutes: null, baseAUD: null },
+  { id: "30m", label: "30 minutes" },
+  { id: "60m", label: "1 hour" },
+  { id: "120m", label: "2 hours" },
+  { id: "custom", label: "Longer / custom" },
 ] as const;
 
 export const INTEREST_OPTIONS = [
@@ -23,6 +22,7 @@ export const INTEREST_OPTIONS = [
 
 export type DurationId = (typeof DURATION_OPTIONS)[number]["id"];
 export type InterestId = (typeof INTEREST_OPTIONS)[number]["id"];
+export type RateTable = Record<DurationId, number | null>;
 
 export function formatAUD(value: number): string {
   if (!Number.isSafeInteger(value) || value < 0) throw new Error("Invalid amount");
@@ -35,34 +35,33 @@ export function formatAUD(value: number): string {
 
 export function estimateInterest(
   durationId: DurationId,
-  interestIds: readonly InterestId[] = [],
+  interestIds: readonly InterestId[],
+  rateTable: RateTable,
 ) {
   const duration = DURATION_OPTIONS.find((entry) => entry.id === durationId);
   if (!duration) throw new Error("Unsupported duration");
-
-  const interestSet = new Set(interestIds);
   if (interestIds.some((id) => !INTEREST_OPTIONS.some((entry) => entry.id === id))) {
     throw new Error("Unsupported interest");
   }
-
-  const selection = INTEREST_OPTIONS.filter((option) => interestSet.has(option.id));
-  const customQuote = duration.baseAUD === null ||
-    interestSet.has("extended") ||
-    interestSet.has("other");
-
+  const amount = rateTable[durationId];
+  if (amount !== null && (!Number.isSafeInteger(amount) || amount < 0)) {
+    throw new Error("Invalid rate");
+  }
+  const selection = new Set(interestIds);
   return {
     duration: duration.label,
-    baseAUD: duration.baseAUD,
-    interests: selection.map((option) => option.label),
-    customQuote,
+    baseAUD: amount,
+    interests: INTEREST_OPTIONS.filter((option) => selection.has(option.id)).map((option) => option.label),
+    customQuote: amount === null || selection.has("extended") || selection.has("other"),
   };
 }
 
 export function buildIndependentEnquiryText(
   durationId: DurationId,
   interestIds: readonly InterestId[],
+  rateTable: RateTable,
 ): string {
-  const quote = estimateInterest(durationId, interestIds);
+  const quote = estimateInterest(durationId, interestIds, rateTable);
   const amount = quote.baseAUD === null ? "Please quote directly" : formatAUD(quote.baseAUD);
   return [
     "Hello Ellie May,",
