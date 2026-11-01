@@ -64,10 +64,10 @@ export function Navbar() {
           <button
             type="button"
             data-testid="nav-book-btn"
-            onClick={() => go("#booking")}
+            onClick={() => go("#contact")}
             className="btn-gold nav-book ml-8"
           >
-            Book
+            Contact
           </button>
         </nav>
 
@@ -103,10 +103,10 @@ export function Navbar() {
             ))}
             <button
               type="button"
-              onClick={() => go("#booking")}
+              onClick={() => go("#contact")}
               className="btn-gold mt-6 w-full"
             >
-              Book an enquiry
+              Contact Ellie
             </button>
           </nav>
         </div>
