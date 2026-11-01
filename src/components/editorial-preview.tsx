@@ -79,7 +79,7 @@ export function EditorialPreview({
 
       <div className="ellie-topline" role="note">
         <span className="ellie-live-dot" aria-hidden="true" />
-        <span>ELLIE MAY / THE PRIVATE EDITION</span>
+        <span>ELLIE MAY / OBSIDIAN & GOLD</span>
         <span className="ellie-top-divider" aria-hidden="true">✦</span>
         <span>18+ EDITORIAL PREVIEW</span>
       </div>
@@ -87,7 +87,7 @@ export function EditorialPreview({
       <header className="ellie-header">
         <a className="ellie-wordmark" href="#home" aria-label="Ellie May, return to top">
           <span className="ellie-monogram" aria-hidden="true">em</span>
-          <span className="ellie-wordmark-name">ELLIE MAY <small>THE PRIVATE EDITION</small></span>
+          <span className="ellie-wordmark-name">ELLIE MAY <small>OBSIDIAN & GOLD · PRIVATE EDITION</small></span>
         </a>
         <nav className="ellie-nav" aria-label="Primary navigation">
           {sections.map((item) => (
