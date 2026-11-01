@@ -13,7 +13,6 @@ import { EllieRateCalculator } from "@/components/ellie-rate-calculator";
 import { SiteFooter } from "@/components/footer";
 import { getPublicationMode } from "@/lib/public-mode";
 import type { RateTable } from "@/lib/ellie-rate-estimator";
-import "@/styles/ellie-black-gold-v5.css";
 
 export const Route = createFileRoute("/")({ component: Home });
 
