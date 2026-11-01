@@ -12,6 +12,7 @@ import { Availability } from "@/components/availability";
 import { EllieRateCalculator } from "@/components/ellie-rate-calculator";
 import { SiteFooter } from "@/components/footer";
 import { getPublicationMode } from "@/lib/public-mode";
+import type { RateTable } from "@/lib/ellie-rate-estimator";
 
 export const Route = createFileRoute("/")({ component: Home });
 
@@ -21,6 +22,7 @@ type PublicationMode = {
   fullSite: boolean;
   commercialEnabled: boolean;
   rateCardVisible: boolean;
+  rateTable: RateTable | null;
   rateCardPublished: boolean;
   directContactUrl: string | null;
 };
@@ -46,7 +48,7 @@ function Home() {
         if (active) setMode(value);
       })
       .catch(() => {
-        if (active) setMode({ fullSite: false, commercialEnabled: false, rateCardVisible: false, rateCardPublished: false, directContactUrl: null });
+        if (active) setMode({ fullSite: false, commercialEnabled: false, rateCardVisible: false, rateTable: null, rateCardPublished: false, directContactUrl: null });
       });
     return () => {
       active = false;
@@ -79,6 +81,7 @@ function Home() {
         showRateEstimator={mode.rateCardVisible}
         estimatorPreviewOnly={!mode.rateCardPublished}
         directContactUrl={mode.directContactUrl}
+        rateTable={mode.rateTable}
       />
     );
   }
@@ -97,8 +100,9 @@ function Home() {
       <Services />
       <Gallery />
       <Availability />
-      {mode.rateCardVisible && (
+      {mode.rateCardVisible && mode.rateTable && (
         <EllieRateCalculator
+          rateTable={mode.rateTable}
           previewOnly={!mode.rateCardPublished}
           directContactUrl={mode.directContactUrl}
         />
