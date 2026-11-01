@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { ArrowDown, ArrowUpRight, Film, Menu, Play, X } from "lucide-react";
 import { media } from "@/lib/site-data";
+import { EllieRateCalculator } from "@/components/ellie-rate-calculator";
 
 const sections = [
   { label: "The introduction", href: "#story" },
@@ -19,7 +20,15 @@ const films = [
  * Its presence does not enable commercial publishing, rates or booking endpoints.
  * The original-site media is intentionally preserved with no claim of photographic authenticity.
  */
-export function EditorialPreview() {
+export function EditorialPreview({
+  showRateEstimator = false,
+  estimatorPreviewOnly = false,
+  directContactUrl = null,
+}: {
+  showRateEstimator?: boolean;
+  estimatorPreviewOnly?: boolean;
+  directContactUrl?: string | null;
+}) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [showMedia, setShowMedia] = useState(false);
   const [activeFilm, setActiveFilm] = useState<number | null>(null);
@@ -81,6 +90,7 @@ export function EditorialPreview() {
           {sections.map((item) => (
             <a href={item.href} key={item.href}>{item.label}</a>
           ))}
+          {showRateEstimator && <a href="#estimate">Rates & estimate</a>}
         </nav>
         <a href="#editorial" className="ellie-header-cta">
           Explore the edition <ArrowUpRight size={16} aria-hidden="true" />
@@ -101,6 +111,9 @@ export function EditorialPreview() {
           {sections.map((item) => (
             <a href={item.href} key={item.href} onClick={() => setMobileOpen(false)}>{item.label}</a>
           ))}
+          {showRateEstimator && (
+            <a href="#estimate" onClick={() => setMobileOpen(false)}>Rates & estimate</a>
+          )}
           <a href="#finale" onClick={() => setMobileOpen(false)}>The next chapter</a>
         </nav>
       )}
@@ -262,6 +275,13 @@ export function EditorialPreview() {
           </article>
         </div>
       </section>
+
+      {showRateEstimator && (
+        <EllieRateCalculator
+          previewOnly={estimatorPreviewOnly}
+          directContactUrl={directContactUrl}
+        />
+      )}
 
       <section id="finale" className="ellie-finale" aria-labelledby="ellie-finale-title">
         <div className="ellie-finale-text">
