@@ -5,6 +5,7 @@ import { readFileSync } from "node:fs";
 const source = (path) => readFileSync(new URL("../" + path, import.meta.url), "utf8");
 const css = source("src/styles/ellie-black-gold-v5.css");
 const homepage = source("src/routes/index.tsx");
+const root = source("src/routes/__root.tsx");
 const editorial = source("src/components/editorial-preview.tsx");
 
 test("public homepage imports the independently scoped luxe theme", () => {
