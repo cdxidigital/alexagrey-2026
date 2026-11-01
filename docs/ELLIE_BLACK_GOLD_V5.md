@@ -17,7 +17,7 @@ This is a luxury editorial page rather than a booking directory: monumental Corm
 
 ## Code changes
 - `src/styles/ellie-black-gold-v5.css`: scoped design layer. It affects only Ellie May's public homepage, age entry and rate estimator, not the private fleshsesh Studio.
-- `src/routes/index.tsx`: imports the theme.
+- `src/routes/__root.tsx`: loads the dedicated theme stylesheet after shared CSS for deterministic cascading.\n- `src/routes/index.tsx`: keeps the rate and public-content gates unchanged.
 - `src/routes/__root.tsx`: page title and browser theme colour.
 - `src/components/editorial-preview.tsx`: coordinated header and strapline.
 - `scripts/ellie-black-gold.test.mjs`: source regression tests.
