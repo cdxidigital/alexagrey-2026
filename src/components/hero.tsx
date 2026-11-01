@@ -99,10 +99,10 @@ export function Hero() {
             <button
               type="button"
               data-testid="hero-book-btn"
-              onClick={() => scrollToId("#booking")}
+              onClick={() => scrollToId("#contact")}
               className="btn-gold"
             >
-              Book an Enquiry
+              Contact Ellie
             </button>
             <button
               type="button"
