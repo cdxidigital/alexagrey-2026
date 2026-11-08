@@ -43,7 +43,7 @@
 | 8 Handover | Pending | Runbook drafted; operator and real finance records outstanding |
 
 ## Continuation
-**Last evidenced changes:** V5 black/gold React sources, server-gated draft rates, digital-only booking denial, 10+ source checks, design HTML smoke tests. Updated `src/components/ellie-rate-calculator.tsx` to distinguish approved price copy from private draft, with regression test `scripts/ellie-pricing-copy.test.mjs`.
+**Last evidenced changes:** V5 black/gold React sources, server-gated draft rates, digital-only booking denial, 10+ source checks, design HTML smoke tests. **Digital economics model and tests: 5/5 passed under Node 22, with Git blob identity checked** for scripts/fleshsesh-digital-economics.mjs and its test. Updated `src/components/ellie-rate-calculator.tsx` to distinguish approved price copy from private draft, with regression test `scripts/ellie-pricing-copy.test.mjs`.
 
 **Now:** resolve unverified live build and adult-media direct-URL publication path.  
 **Next action:** obtain working GitHub runner or exact-commit local build and regenerated lockfile; run `npm ci`, `npm run typecheck`, `npm run lint`, `npm test`, `npm run build`. Separately have creator/reviewer classify image/video and document appropriate age and rate advertising controls.
