@@ -26,6 +26,7 @@ export async function mayPreviewFullSite(): Promise<boolean> {
 export function isRateCardPublicationApproved(): boolean {
   return (
     process.env.ELLIE_RATE_CARD_APPROVED === "true" &&
+    process.env.ELLIE_RATE_SCOPE_CONFIRMED === "digital_modelling_only" &&
     process.env.ELLIE_CREATOR_RELEASE_APPROVED === "true" &&
     process.env.ELLIE_ADVERTISING_LEGAL_APPROVED === "true" &&
     process.env.ELLIE_AGE_ASSURANCE_APPROVED === "true"
