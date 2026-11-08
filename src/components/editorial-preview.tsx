@@ -2,6 +2,8 @@ import { useEffect, useRef, useState } from "react";
 import { ArrowDown, ArrowUpRight, Film, Menu, Play, X } from "lucide-react";
 import { media } from "@/lib/site-data";
 import { EllieRateCalculator } from "@/components/ellie-rate-calculator";
+import { EllieCreatorOffers } from "@/components/ellie-creator-offers";
+import type { CreatorOffer } from "@/lib/ellie-creator-offer-catalog";
 import type { RateTable } from "@/lib/ellie-rate-estimator";
 
 const sections = [
@@ -26,11 +28,15 @@ export function EditorialPreview({
   estimatorPreviewOnly = false,
   directContactUrl = null,
   rateTable = null,
+  creatorOffers = [],
+  creatorOffersPublished = false,
 }: {
   showRateEstimator?: boolean;
   estimatorPreviewOnly?: boolean;
   directContactUrl?: string | null;
   rateTable?: RateTable | null;
+  creatorOffers?: CreatorOffer[];
+  creatorOffersPublished?: boolean;
 }) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [showMedia, setShowMedia] = useState(false);
@@ -93,6 +99,7 @@ export function EditorialPreview({
           {sections.map((item) => (
             <a href={item.href} key={item.href}>{item.label}</a>
           ))}
+          {creatorOffers.length > 0 && <a href="#creator-offers">Creator offers</a>}
           {showRateEstimator && rateTable && <a href="#estimate">Rates & estimate</a>}
         </nav>
         <a href="#editorial" className="ellie-header-cta">
@@ -114,6 +121,7 @@ export function EditorialPreview({
           {sections.map((item) => (
             <a href={item.href} key={item.href} onClick={() => setMobileOpen(false)}>{item.label}</a>
           ))}
+          {creatorOffers.length > 0 && <a href="#creator-offers" onClick={() => setMobileOpen(false)}>Creator offers</a>}
           {showRateEstimator && rateTable && (
             <a href="#estimate" onClick={() => setMobileOpen(false)}>Rates & estimate</a>
           )}
@@ -278,6 +286,8 @@ export function EditorialPreview({
           </article>
         </div>
       </section>
+
+      <EllieCreatorOffers offers={creatorOffers} previewOnly={!creatorOffersPublished} />
 
       {showRateEstimator && rateTable && (
         <EllieRateCalculator
