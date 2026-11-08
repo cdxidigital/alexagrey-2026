@@ -1,0 +1,442 @@
+{
+  "schema_version": 1,
+  "template_version": "1.0.0",
+  "project": "Ellie May × fleshsesh",
+  "release": "V5.1 controlled digital landing + commercially bounded operator pilot",
+  "mode": "Standard",
+  "updated_at": "2026-11-08T10:36:00+08:00",
+  "readiness": "blocked",
+  "source": "https://github.com/cdxidigital/alexagrey-2026",
+  "revision": "3c3e2fac25ff11f0032d077b8904659b60eea125",
+  "branch": "cdxi/ellie-may-audit-polish",
+  "review_pr": "https://github.com/cdxidigital/alexagrey-2026/pull/2",
+  "stages": [
+    {
+      "id": 1,
+      "name": "Brief",
+      "status": "passed",
+      "evidence": [
+        "https://github.com/cdxidigital/alexagrey-2026/blob/cdxi/ellie-may-audit-polish/docs/ELLIE_DIGITAL_ONLY_ENGAGEMENT.md"
+      ],
+      "reason": ""
+    },
+    {
+      "id": 2,
+      "name": "Roadmap",
+      "status": "passed",
+      "evidence": [
+        "https://github.com/cdxidigital/alexagrey-2026/blob/cdxi/ellie-may-audit-polish/docs/FLESHSESH_DIGITAL_STRATEGY_2026-11-08.md",
+        "https://github.com/cdxidigital/alexagrey-2026/blob/cdxi/ellie-may-audit-polish/docs/FLESHSESH_REVENUE_REVIEW_2026-11-08.md"
+      ],
+      "reason": ""
+    },
+    {
+      "id": 3,
+      "name": "Design",
+      "status": "passed",
+      "evidence": [
+        "https://github.com/cdxidigital/alexagrey-2026/blob/cdxi/ellie-may-audit-polish/docs/ELLIE_BLACK_GOLD_V5.md",
+        "https://github.com/cdxidigital/alexagrey-2026/blob/cdxi/ellie-may-audit-polish/src/components/ellie-rate-calculator.tsx"
+      ],
+      "reason": ""
+    },
+    {
+      "id": 4,
+      "name": "Foundation",
+      "status": "passed",
+      "evidence": [
+        "https://github.com/cdxidigital/alexagrey-2026/blob/cdxi/ellie-may-audit-polish/src/routes/index.tsx",
+        "https://github.com/cdxidigital/alexagrey-2026/blob/cdxi/ellie-may-audit-polish/src/lib/public-mode.server.ts",
+        "https://github.com/cdxidigital/alexagrey-2026/blob/cdxi/ellie-may-audit-polish/src/lib/ellie-digital-scope.ts"
+      ],
+      "reason": ""
+    },
+    {
+      "id": 5,
+      "name": "Build",
+      "status": "pending",
+      "evidence": [],
+      "reason": "Incomplete digital contact and asset gating"
+    },
+    {
+      "id": 6,
+      "name": "Verify",
+      "status": "pending",
+      "evidence": [],
+      "reason": "Failed GitHub runner before steps; no React build/e2e evidence"
+    },
+    {
+      "id": 7,
+      "name": "Release",
+      "status": "pending",
+      "evidence": [],
+      "reason": "No current matching verified live deployment or publication approval"
+    },
+    {
+      "id": 8,
+      "name": "Handover",
+      "status": "pending",
+      "evidence": [],
+      "reason": "Operators not signed off; versioned documentation drafted"
+    }
+  ],
+  "tasks": [
+    {
+      "id": "B01",
+      "title": "Digital-only scope and accepted constraints",
+      "stage": 1,
+      "points": 2,
+      "status": "done",
+      "owner": "fleshsesh digital delivery",
+      "acceptance": "Creator control, included/excluded digital functions and target site recorded",
+      "depends_on": [],
+      "evidence": [
+        "https://github.com/cdxidigital/alexagrey-2026/blob/cdxi/ellie-may-audit-polish/docs/ELLIE_DIGITAL_ONLY_ENGAGEMENT.md"
+      ]
+    },
+    {
+      "id": "R01",
+      "title": "Release roadmap and revenue architecture",
+      "stage": 2,
+      "points": 3,
+      "status": "done",
+      "owner": "fleshsesh digital delivery",
+      "acceptance": "Now/Next/Later, owner and recurring digital service offer documented",
+      "depends_on": [
+        "B01"
+      ],
+      "evidence": [
+        "https://github.com/cdxidigital/alexagrey-2026/blob/cdxi/ellie-may-audit-polish/docs/FLESHSESH_DIGITAL_STRATEGY_2026-11-08.md"
+      ]
+    },
+    {
+      "id": "R02",
+      "title": "Evidence-limited digital unit economics and pilot design",
+      "stage": 2,
+      "points": 2,
+      "status": "done",
+      "owner": "fleshsesh digital delivery",
+      "acceptance": "Gross-to-contribution bridge, assumptions and one pilot test published",
+      "depends_on": [
+        "B01"
+      ],
+      "evidence": [
+        "https://github.com/cdxidigital/alexagrey-2026/blob/cdxi/ellie-may-audit-polish/docs/FLESHSESH_REVENUE_REVIEW_2026-11-08.md"
+      ]
+    },
+    {
+      "id": "D01",
+      "title": "Premium black-and-gold responsive visual system",
+      "stage": 3,
+      "points": 5,
+      "status": "done",
+      "owner": "fleshsesh digital delivery",
+      "acceptance": "Design tokens, responsive states, original-image editorial direction",
+      "depends_on": [
+        "B01"
+      ],
+      "evidence": [
+        "https://github.com/cdxidigital/alexagrey-2026/blob/cdxi/ellie-may-audit-polish/src/styles/ellie-black-gold-v5.css",
+        "https://github.com/cdxidigital/alexagrey-2026/blob/cdxi/ellie-may-audit-polish/docs/ELLIE_BLACK_GOLD_V5.md"
+      ]
+    },
+    {
+      "id": "D02",
+      "title": "Rate estimate and independent-contact journey",
+      "stage": 3,
+      "points": 3,
+      "status": "done",
+      "owner": "fleshsesh digital delivery",
+      "acceptance": "Duration selection, multi-select, copy-only enquiry and blocked physical bookings designed",
+      "depends_on": [
+        "B01"
+      ],
+      "evidence": [
+        "https://github.com/cdxidigital/alexagrey-2026/blob/cdxi/ellie-may-audit-polish/src/components/ellie-rate-calculator.tsx"
+      ]
+    },
+    {
+      "id": "F01",
+      "title": "Inspect TanStack/React architecture and publication modes",
+      "stage": 4,
+      "points": 3,
+      "status": "done",
+      "owner": "fleshsesh digital delivery",
+      "acceptance": "Existing repo, server flags and access boundaries mapped",
+      "depends_on": [
+        "B01"
+      ],
+      "evidence": [
+        "https://github.com/cdxidigital/alexagrey-2026/blob/cdxi/ellie-may-audit-polish/src/routes/index.tsx",
+        "https://github.com/cdxidigital/alexagrey-2026/blob/cdxi/ellie-may-audit-polish/src/lib/public-mode.server.ts"
+      ]
+    },
+    {
+      "id": "F02",
+      "title": "Enforce digital-only bookings/payment boundary",
+      "stage": 4,
+      "points": 3,
+      "status": "done",
+      "owner": "fleshsesh digital delivery",
+      "acceptance": "Legacy booking endpoint rejects physical services; no public booking form mounted",
+      "depends_on": [
+        "B01"
+      ],
+      "evidence": [
+        "https://github.com/cdxidigital/alexagrey-2026/blob/cdxi/ellie-may-audit-polish/src/lib/ellie-digital-scope.ts",
+        "https://github.com/cdxidigital/alexagrey-2026/blob/cdxi/ellie-may-audit-polish/scripts/ellie-digital-scope.test.mjs"
+      ]
+    },
+    {
+      "id": "I01",
+      "title": "Implement premium Ellie May editorial landing",
+      "stage": 5,
+      "points": 5,
+      "status": "done",
+      "owner": "fleshsesh digital delivery",
+      "acceptance": "V5 source and standalone visual checks for hero/gallery/responsiveness",
+      "depends_on": [
+        "D01",
+        "F01"
+      ],
+      "evidence": [
+        "https://github.com/cdxidigital/alexagrey-2026/blob/cdxi/ellie-may-audit-polish/src/components/editorial-preview.tsx",
+        "https://github.com/cdxidigital/alexagrey-2026/blob/cdxi/ellie-may-audit-polish/src/styles/ellie-black-gold-v5.css"
+      ]
+    },
+    {
+      "id": "I02",
+      "title": "Implement multi-select estimated-rate calculator",
+      "stage": 5,
+      "points": 3,
+      "status": "done",
+      "owner": "fleshsesh digital delivery",
+      "acceptance": "Pure calculations and server-gated draft rate source with user summary",
+      "depends_on": [
+        "D02",
+        "F01"
+      ],
+      "evidence": [
+        "https://github.com/cdxidigital/alexagrey-2026/blob/cdxi/ellie-may-audit-polish/src/lib/ellie-rate-estimator.ts",
+        "https://github.com/cdxidigital/alexagrey-2026/blob/cdxi/ellie-may-audit-polish/src/lib/public-mode.ts",
+        "https://github.com/cdxidigital/alexagrey-2026/blob/cdxi/ellie-may-audit-polish/scripts/ellie-rate-estimator.test.mjs"
+      ]
+    },
+    {
+      "id": "I03",
+      "title": "Apply design, keyboard and reduced-motion polish",
+      "stage": 5,
+      "points": 3,
+      "status": "done",
+      "owner": "fleshsesh digital delivery",
+      "acceptance": "Scoped black-gold style and regression source checks present",
+      "depends_on": [
+        "I01"
+      ],
+      "evidence": [
+        "https://github.com/cdxidigital/alexagrey-2026/blob/cdxi/ellie-may-audit-polish/src/styles/ellie-black-gold-v5.css",
+        "https://github.com/cdxidigital/alexagrey-2026/blob/cdxi/ellie-may-audit-polish/scripts/ellie-black-gold.test.mjs"
+      ]
+    },
+    {
+      "id": "I04",
+      "title": "Clarify approved versus draft rate-copy states",
+      "stage": 5,
+      "points": 2,
+      "status": "done",
+      "owner": "fleshsesh digital delivery",
+      "acceptance": "Public approved copy distinguishes total/compulsory charges; private copy is unapproved",
+      "depends_on": [
+        "I02"
+      ],
+      "evidence": [
+        "https://github.com/cdxidigital/alexagrey-2026/blob/cdxi/ellie-may-audit-polish/src/components/ellie-rate-calculator.tsx",
+        "https://github.com/cdxidigital/alexagrey-2026/blob/cdxi/ellie-may-audit-polish/scripts/ellie-pricing-copy.test.mjs"
+      ]
+    },
+    {
+      "id": "I05",
+      "title": "Publish authorised Ellie-owned direct contact",
+      "stage": 5,
+      "points": 2,
+      "status": "blocked",
+      "owner": "fleshsesh digital delivery",
+      "acceptance": "Approved real URL, creator control and location-specific publishing clearance verified",
+      "depends_on": [
+        "I02"
+      ],
+      "evidence": []
+    },
+    {
+      "id": "I06",
+      "title": "Classify and protect restricted original media assets",
+      "stage": 5,
+      "points": 5,
+      "status": "blocked",
+      "owner": "fleshsesh digital delivery",
+      "acceptance": "Every image/video classified; direct URLs appropriately controlled for content category",
+      "depends_on": [
+        "I01"
+      ],
+      "evidence": []
+    },
+    {
+      "id": "I07",
+      "title": "Remove or gate sensitive legacy catalogue and source data",
+      "stage": 5,
+      "points": 3,
+      "status": "blocked",
+      "owner": "fleshsesh digital delivery",
+      "acceptance": "Unapproved service text/price data not available in public bundles/repository; retention reviewed",
+      "depends_on": [
+        "I06"
+      ],
+      "evidence": []
+    },
+    {
+      "id": "V01",
+      "title": "Regenerate lock and run typecheck/lint/tests/build",
+      "stage": 6,
+      "points": 5,
+      "status": "blocked",
+      "owner": "Engineering + compliance",
+      "acceptance": "Full React CI passes from current review head and generated lock committed",
+      "depends_on": [
+        "I01",
+        "I02"
+      ],
+      "evidence": []
+    },
+    {
+      "id": "V02",
+      "title": "Run actual React browser and accessibility smoke tests",
+      "stage": 6,
+      "points": 3,
+      "status": "blocked",
+      "owner": "Engineering + compliance",
+      "acceptance": "Built app tested at 320/390/768/1024/1440, keyboard and video flows",
+      "depends_on": [
+        "V01"
+      ],
+      "evidence": []
+    },
+    {
+      "id": "V03",
+      "title": "Review direct-media, privacy, pricing and publishing controls",
+      "stage": 6,
+      "points": 5,
+      "status": "blocked",
+      "owner": "Engineering + compliance",
+      "acceptance": "Applicable age/content controls, status denial and price claims verified",
+      "depends_on": [
+        "I05",
+        "I06",
+        "I07",
+        "V01"
+      ],
+      "evidence": []
+    },
+    {
+      "id": "L01",
+      "title": "Deploy matching revision to protected Vercel preview",
+      "stage": 7,
+      "points": 3,
+      "status": "blocked",
+      "owner": "Creator + fleshsesh release lead",
+      "acceptance": "Preview ready for current commit, responsive/access checks pass",
+      "depends_on": [
+        "V01",
+        "V02"
+      ],
+      "evidence": []
+    },
+    {
+      "id": "L02",
+      "title": "Obtain creator/legal/channel/age approvals before public release",
+      "stage": 7,
+      "points": 5,
+      "status": "blocked",
+      "owner": "Creator + fleshsesh release lead",
+      "acceptance": "Documented creator release, rate accuracy, channel restrictions and age assurance",
+      "depends_on": [
+        "V03"
+      ],
+      "evidence": []
+    },
+    {
+      "id": "H01",
+      "title": "Document product decisions, safe rollback and model assumptions",
+      "stage": 8,
+      "points": 2,
+      "status": "done",
+      "owner": "fleshsesh digital delivery",
+      "acceptance": "Versioned operating and revenue docs on review branch",
+      "depends_on": [
+        "R01",
+        "R02"
+      ],
+      "evidence": [
+        "https://github.com/cdxidigital/alexagrey-2026/blob/cdxi/ellie-may-audit-polish/docs/ELLIE_DIGITAL_ONLY_ENGAGEMENT.md",
+        "https://github.com/cdxidigital/alexagrey-2026/blob/cdxi/ellie-may-audit-polish/docs/ELLIE_BLACK_GOLD_V5.md"
+      ]
+    },
+    {
+      "id": "H02",
+      "title": "Transfer ownership, SLA and actual revenue measurement",
+      "stage": 8,
+      "points": 2,
+      "status": "todo",
+      "owner": "fleshsesh digital delivery",
+      "acceptance": "Creator/contact, owner handoff and first real digital cash/timesheet ledger accepted",
+      "depends_on": [
+        "L01",
+        "L02"
+      ],
+      "evidence": []
+    }
+  ],
+  "next_action": "Restore/replace GitHub Actions runner, regenerate clean npm lockfile and execute full React QA; in parallel Ellie and counsel classify/approve each media asset, mandatory price component and independent contact URL.",
+  "blockers": [
+    {
+      "id": "X01",
+      "owner": "Engineering/platform administrator",
+      "problem": "GitHub Actions run 41268771656 failed before runner assigned; cannot claim full build",
+      "resolution": "Restore runner/billing access or run a verified local CI equivalent on exact commit"
+    },
+    {
+      "id": "X02",
+      "owner": "Creator + qualified Australian legal reviewer",
+      "problem": "No documented per-asset classification and public advertising/age clearance",
+      "resolution": "Obtain asset-level release/classification and confirm appropriate age controls; if restricted remove direct public URLs"
+    },
+    {
+      "id": "X03",
+      "owner": "Ellie May",
+      "problem": "Current rate totals, mandatory extras and approved personal contact URL unverified",
+      "resolution": "Confirm figures and any unavoidable charges; provide creator-owned verified contact"
+    },
+    {
+      "id": "X04",
+      "owner": "Release lead",
+      "problem": "V5.1 commit not matched to a fresh verified Vercel deployment",
+      "resolution": "Stage/verify exact candidate only after passing build and publication gates"
+    }
+  ],
+  "scope_history": [
+    {
+      "date": "2026-11-08",
+      "change": "Formalized prior V5 website into V5.1 controlled digital release and added a B2B digital services revenue hypothesis. No physical-service bookings/payment/commission in scope.",
+      "old_points": null,
+      "new_points": 69,
+      "comparability": "No previous standard point ledger; this is the baseline. Earlier six-phase percentages are not directly comparable."
+    }
+  ],
+  "process_improvements": [
+    {
+      "date": "2026-11-08",
+      "status": "adopted_project_local",
+      "lesson": "Preview screenshots and design completeness must not be conflated with compiled React verification or a legally cleared public release.",
+      "control": "Distinct stage 5 source-build, stage 6 runtime verification and stage 7 publication sign-off."
+    }
+  ]
+}
