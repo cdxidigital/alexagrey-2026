@@ -1,3 +1,5 @@
+> **Scope clarification (8 November 2026):** This is a **fleshsesh B2B digital-services supplier** analysis, **not Ellie May's creator-income strategy**. Ellie May is an adult influencer and model. For her memberships, paid digital media, commissions, live content and commercial partnerships, use [ELLIE_CREATOR_REVENUE_2026-11-08.md](./ELLIE_CREATOR_REVENUE_2026-11-08.md). The provider must not treat Ellie's physical-service earnings as supplier revenue.
+
 # fleshsesh | Digital footprint revenue review and 30-day pilot
 **Decision:** choose an economically sustainable, digital-only managed-web offer for Ellie May and future authorised clients.  
 **As-of:** 2026-11-08 · **Currency:** AUD, **GST excluded from illustrative calculations** · **Timezone:** Australia/Perth.  
