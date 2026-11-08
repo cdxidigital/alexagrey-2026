@@ -17,6 +17,8 @@ export const getPublicationMode = createServerFn({ method: "GET" }).handler(
     // Without it, unpublished amounts are never returned to the client UI.
     const reviewOnly = fullSite && !commercialEnabled;
     const rateCardVisible = rateCardPublished || reviewOnly;
+    const creatorOfferData = (await import("@/lib/ellie-creator-offers.server"))
+      .listCreatorOfferLinks(reviewOnly);
     const rateTable = rateCardVisible
       ? (await import("@/lib/ellie-rate-card.server")).getDraftRateTable()
       : null;
@@ -25,6 +27,8 @@ export const getPublicationMode = createServerFn({ method: "GET" }).handler(
       commercialEnabled,
       rateCardVisible,
       rateTable,
+      creatorOffers: creatorOfferData.offers,
+      creatorOffersPublished: creatorOfferData.published,
       rateCardPublished,
       directContactUrl: rateCardPublished ? getApprovedCreatorContactUrl() : null,
     };
