@@ -7,7 +7,7 @@ const get = (path) => readFileSync(new URL("../" + path, import.meta.url), "utf8
 
 test("catalogue covers adult influencer and model DIGITAL earning categories", () => {
   assert.deepEqual(CREATOR_OFFER_CATALOG.map((offer) => offer.id), [
-    "membership", "premium-media", "personalised", "live", "collabs", "merch", "affiliate",
+    "membership", "premium-media", "personalised", "live", "tips", "collabs", "merch", "affiliate",
   ]);
   for (const offer of CREATOR_OFFER_CATALOG) {
     assert.ok(offer.title && offer.description && offer.action && offer.configKey);
