@@ -1,6 +1,8 @@
 import { createServerFn } from "@tanstack/react-start";
+import { setResponseHeader } from "@tanstack/react-start/server";
 import { getSql } from "@/lib/db";
 import { durationOptions, extras as extraMenu } from "@/lib/site-data";
+import { rejectPhysicalBookingIntake } from "@/lib/ellie-digital-scope";
 
 export const STATUSES = ["new", "contacted", "confirmed", "declined", "archived"] as const;
 export type EnquiryStatus = (typeof STATUSES)[number];
@@ -106,70 +108,76 @@ function parseEnquiryInput(raw: EnquiryInput): EnquiryInput {
   return { name, email, phone, duration, date, location, extras, message };
 }
 
+/**
+ * Compatibility endpoint: a legacy form may reference this function, but
+ * fleshsesh is not an operator of Ellie's physical-service bookings.
+ * Always reject direct calls, irrespective of publication or studio flags.
+ */
 export const submitEnquiry = createServerFn({ method: "POST" })
   .validator((raw: EnquiryInput) => parseEnquiryInput(raw))
-  .handler(async ({ data }) => {
-    const sql = await getSql();
-    const rows = await sql.query<{ id: number }>(
-      `insert into bookings
-        (name, email, phone, duration, preferred_at, location, extras, message)
-       values ($1, $2, $3, $4, $5, $6, $7::jsonb, $8)
-       returning id`,
-      [
-        data.name,
-        data.email,
-        data.phone,
-        data.duration,
-        data.date,
-        data.location,
-        JSON.stringify(data.extras),
-        data.message,
-      ],
-    );
-    return { id: Number(rows[0]?.id ?? 0) };
+  .handler(async () => {
+    setResponseHeader("Cache-Control", "no-store");
+    rejectPhysicalBookingIntake();
   });
 
 export const unlockInbox = createServerFn({ method: "POST" })
-  .validator((raw: { code: string }) => ({ code: String(raw?.code ?? "").trim() }))
+  .validator((raw: { code: string }) => ({ code: String(raw?.code ?? "").trim().slice(0, 128) }))
   .handler(async ({ data }) => {
+    const { requireRateLimit } = await import("@/lib/rate-limit.server");
+    await requireRateLimit("studio-login");
+    setResponseHeader("Cache-Control", "no-store");
     const { grantInboxAccess } = await import("@/lib/inbox-access.server");
-    const token = grantInboxAccess(data.code);
-    if (!token) throw new Error("Incorrect code.");
-    return { token };
+    if (!grantInboxAccess(data.code)) throw new Error("Incorrect code.");
+    return { ok: true as const };
   });
 
+export const checkInboxAccess = createServerFn({ method: "GET" }).handler(async () => {
+  setResponseHeader("Cache-Control", "no-store");
+  const { hasInboxAccess } = await import("@/lib/inbox-access.server");
+  return { authorized: hasInboxAccess() };
+});
+
 export const lockInbox = createServerFn({ method: "POST" }).handler(async () => {
+  setResponseHeader("Cache-Control", "no-store");
   const { clearInboxAccess } = await import("@/lib/inbox-access.server");
   clearInboxAccess();
   return { ok: true as const };
 });
 
 export const listEnquiries = createServerFn({ method: "POST" })
-  .validator((raw: { token?: string }) => ({ token: String(raw?.token ?? "") }))
-  .handler(async ({ data }): Promise<Enquiry[]> => {
-    const { assertInboxToken } = await import("@/lib/inbox-access.server");
-    assertInboxToken(data.token);
+  .handler(async (): Promise<Enquiry[]> => {
+    const { assertInboxAccess } = await import("@/lib/inbox-access.server");
+    assertInboxAccess();
+    setResponseHeader("Cache-Control", "no-store");
     const sql = await getSql();
-  const rows = await sql.query<Record<string, unknown>>(
-    `select id, name, email, phone, duration, preferred_at, location,
-            extras, message, status, notes, created_at::text as created_at
-       from bookings
-      order by created_at desc`,
-  );
-  return rows.map(mapRow);
+    const rows = await sql.query<Record<string, unknown>>(
+      `select id, name, email, phone, duration, preferred_at, location,
+              extras, message, status, notes, created_at::text as created_at
+         from bookings
+        order by created_at desc
+        limit 200`,
+    );
+    return rows.map(mapRow);
 });
 
 export const updateEnquiry = createServerFn({ method: "POST" })
-  .validator((raw: { id: number; status?: EnquiryStatus; notes?: string; token?: string }) => {
+  .validator((raw: { id: number; status?: EnquiryStatus; notes?: string }) => {
     const id = Number(raw.id);
     if (!Number.isInteger(id) || id < 1) throw new Error("Invalid enquiry.");
-    const status = raw.status ? asStatus(raw.status) : undefined;
+    if (raw.status !== undefined && !STATUS_SET.has(raw.status)) {
+      throw new Error("Invalid enquiry status.");
+    }
+    const status = raw.status;
     const notes = raw.notes !== undefined ? clip(raw.notes, 2000) : undefined;
-    return { id, status, notes, token: String(raw.token ?? "") };
+    if (status === undefined && notes === undefined) {
+      throw new Error("No changes supplied.");
+    }
+    return { id, status, notes };
   })
   .handler(async ({ data }): Promise<Enquiry | null> => {
-    const { assertInboxToken } = await import("@/lib/inbox-access.server");
-    assertInboxToken(data.token);
+    const { assertInboxAccess } = await import("@/lib/inbox-access.server");
+    assertInboxAccess();
+    setResponseHeader("Cache-Control", "no-store");
     const sql = await getSql();
     const rows = await sql.query<Record<string, unknown>>(
       `update bookings

@@ -23,10 +23,10 @@ export function SiteFooter() {
             © {new Date().getFullYear()} {profile.name}. All rights reserved.
           </p>
           <Link
-            to="/admin"
+            to="/studio"
             className="mt-3 inline-block font-sans text-xs tracking-wide text-gold/50 transition-colors hover:text-gold"
           >
-            Admin inbox
+            Studio access
           </Link>
         </div>
       </div>

@@ -3,7 +3,7 @@ import { Menu, X } from "lucide-react";
 import { navLinks, profile, scrollToId } from "@/lib/site-data";
 import { cn } from "@/lib/utils";
 
-export function Navbar() {
+export function Navbar({ showRateEstimate = false }: { showRateEstimate?: boolean }) {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
 
@@ -36,6 +36,7 @@ export function Navbar() {
           : "border-b border-transparent bg-transparent",
       )}
     >
+      <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-3 focus:z-[90] focus:rounded-lg focus:bg-gold focus:px-4 focus:py-2 focus:text-ink">Skip to content</a>
       <div className="mx-auto flex h-16 max-w-7xl items-center px-5 md:px-10">
         <button
           type="button"
@@ -48,7 +49,7 @@ export function Navbar() {
 
         <nav className="ml-auto hidden items-center lg:flex">
           <div className="flex items-center gap-8">
-            {navLinks.map((link) => (
+            {navLinks.filter((link) => showRateEstimate || link.href !== "#estimate").map((link) => (
               <button
                 key={link.href}
                 type="button"
@@ -63,10 +64,10 @@ export function Navbar() {
           <button
             type="button"
             data-testid="nav-book-btn"
-            onClick={() => go("#booking")}
+            onClick={() => go("#contact")}
             className="btn-gold nav-book ml-8"
           >
-            Book
+            Contact
           </button>
         </nav>
 
@@ -102,10 +103,10 @@ export function Navbar() {
             ))}
             <button
               type="button"
-              onClick={() => go("#booking")}
+              onClick={() => go("#contact")}
               className="btn-gold mt-6 w-full"
             >
-              Book an enquiry
+              Contact Ellie
             </button>
           </nav>
         </div>
