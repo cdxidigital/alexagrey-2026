@@ -37,6 +37,14 @@ export const CREATOR_OFFER_CATALOG = [
     configKey: "ELLIE_LIVE_CHANNEL_URL",
   },
   {
+    id: "tips",
+    eyebrow: "FAN SUPPORT",
+    title: "Tips & fan support",
+    description: "Optional appreciation and tips through a creator-approved platform.",
+    action: "Support Ellie",
+    configKey: "ELLIE_FAN_SUPPORT_URL",
+  },
+  {
     id: "collabs",
     eyebrow: "WORK WITH ELLIE",
     title: "Brand & modelling work",
