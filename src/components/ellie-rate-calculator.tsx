@@ -59,9 +59,9 @@ export function EllieRateCalculator({
           Your time, <em>your way.</em>
         </h2>
         <p>
-          Choose a duration and a few interests to see an indicative starting amount.
-          These are draft rates provided from Ellie May's existing site, not a confirmed
-          offer or an appointment.
+          {previewOnly
+            ? "Private preview: the amounts were recovered from an earlier site and still need Ellie May's confirmation before public advertising."
+            : "Choose a duration and interests to explore an indicative amount. Ellie May independently confirms availability and the full price, including any applicable compulsory charges."}
         </p>
         {previewOnly && (
           <div className="ellie-estimator-review" role="status">
