@@ -13,6 +13,8 @@ import { EllieRateCalculator } from "@/components/ellie-rate-calculator";
 import { SiteFooter } from "@/components/footer";
 import { getPublicationMode } from "@/lib/public-mode";
 import type { RateTable } from "@/lib/ellie-rate-estimator";
+import type { CreatorOffer } from "@/lib/ellie-creator-offer-catalog";
+import { EllieCreatorOffers } from "@/components/ellie-creator-offers";
 
 export const Route = createFileRoute("/")({ component: Home });
 
@@ -24,6 +26,8 @@ type PublicationMode = {
   rateCardVisible: boolean;
   rateTable: RateTable | null;
   rateCardPublished: boolean;
+  creatorOffers: CreatorOffer[];
+  creatorOffersPublished: boolean;
   directContactUrl: string | null;
 };
 
@@ -48,7 +52,7 @@ function Home() {
         if (active) setMode(value);
       })
       .catch(() => {
-        if (active) setMode({ fullSite: false, commercialEnabled: false, rateCardVisible: false, rateTable: null, rateCardPublished: false, directContactUrl: null });
+        if (active) setMode({ fullSite: false, commercialEnabled: false, rateCardVisible: false, rateTable: null, rateCardPublished: false, creatorOffers: [], creatorOffersPublished: false, directContactUrl: null });
       });
     return () => {
       active = false;
@@ -82,6 +86,8 @@ function Home() {
         estimatorPreviewOnly={!mode.rateCardPublished}
         directContactUrl={mode.directContactUrl}
         rateTable={mode.rateTable}
+        creatorOffers={mode.creatorOffers}
+        creatorOffersPublished={mode.creatorOffersPublished}
       />
     );
   }
@@ -99,6 +105,7 @@ function Home() {
       <About />
       <Services />
       <Gallery />
+      <EllieCreatorOffers offers={mode.creatorOffers} previewOnly={!mode.creatorOffersPublished} />
       <Availability />
       {mode.rateCardVisible && mode.rateTable && (
         <EllieRateCalculator
