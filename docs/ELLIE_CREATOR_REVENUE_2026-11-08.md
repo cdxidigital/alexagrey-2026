@@ -15,7 +15,8 @@ The earlier B2B website-maintenance revenue model remains a separate internal **
 | Exclusive membership | Predictable content access revenue, subject to renewal and churn | Verified subscription link | Creator's approved adult membership platform |
 | Premium photos/films | Incremental digital releases and curated sets | Approved pay-per-view/media collection link | Third-party permitted platform |
 | Personalised digital commissions | Higher-value content requests within explicit creator boundaries | Creator-platform commission enquiry | Creator approves scope, quote, refunds and delivery |
-| Live online content | Fan engagement, virtual events and platform-supported tips | Verified live channel | Creator's approved streaming platform |
+| Live online content | Fan engagement and virtual events | Verified live channel | Creator's approved streaming platform |
+| Tips and fan support | Voluntary audience support | Verified creator-owned tip link | Approved platform handling payments and refunds |
 | Brand/model campaigns | Sponsored posts, commercial modelling, usage rights | Professional collaboration channel | Creator independently quotes and controls work |
 | Merchandise/prints | Content/IP-based physical and digital merchandise | Approved storefront | Merch partner with permitted-use policy |
 | Affiliate partnerships | Product recommendations and tracked commissions | Approved disclosed affiliate link | Eligible affiliate programme, with transparent disclosure |
