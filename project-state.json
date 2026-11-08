@@ -121,7 +121,9 @@
         "B01"
       ],
       "evidence": [
-        "https://github.com/cdxidigital/alexagrey-2026/blob/cdxi/ellie-may-audit-polish/docs/FLESHSESH_REVENUE_REVIEW_2026-11-08.md"
+        "https://github.com/cdxidigital/alexagrey-2026/blob/cdxi/ellie-may-audit-polish/docs/FLESHSESH_REVENUE_REVIEW_2026-11-08.md",
+        "https://github.com/cdxidigital/alexagrey-2026/blob/cdxi/ellie-may-audit-polish/scripts/fleshsesh-digital-economics.mjs",
+        "https://github.com/cdxidigital/alexagrey-2026/blob/cdxi/ellie-may-audit-polish/scripts/fleshsesh-digital-economics.test.mjs"
       ]
     },
     {
@@ -438,5 +440,17 @@
       "lesson": "Preview screenshots and design completeness must not be conflated with compiled React verification or a legally cleared public release.",
       "control": "Distinct stage 5 source-build, stage 6 runtime verification and stage 7 publication sign-off."
     }
-  ]
+  ],
+  "qa_checkpoint": {
+    "date": "2026-11-08",
+    "target": "digital-only economics model",
+    "command": "node --test /mnt/data/ellie-v51-scripts/fleshsesh-digital-economics.test.mjs",
+    "passed": 5,
+    "failed": 0,
+    "source_sha_verified": [
+      "f70a9e35eb145f41116dde040affab62dd12e1f2",
+      "f67c22e58847be9a1ed41ee73cd00b6f8ed59112"
+    ],
+    "limitations": "Full React pipeline is blocked before runner starts; financial data are model assumptions, not invoiced actuals."
+  }
 }
