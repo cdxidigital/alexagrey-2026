@@ -2,9 +2,9 @@
   "schema_version": 1,
   "template_version": "1.0.0",
   "project": "Ellie May × fleshsesh",
-  "release": "V5.1 controlled digital landing + commercially bounded operator pilot",
+  "release": "V5.2 creator monetization architecture, production-domain mapping pending",
   "mode": "Standard",
-  "updated_at": "2026-11-08T10:36:00+08:00",
+  "updated_at": "2026-11-08T11:15:00+08:00",
   "readiness": "blocked",
   "source": "https://github.com/cdxidigital/alexagrey-2026",
   "revision": "3c3e2fac25ff11f0032d077b8904659b60eea125",
@@ -26,7 +26,8 @@
       "status": "passed",
       "evidence": [
         "https://github.com/cdxidigital/alexagrey-2026/blob/cdxi/ellie-may-audit-polish/docs/FLESHSESH_DIGITAL_STRATEGY_2026-11-08.md",
-        "https://github.com/cdxidigital/alexagrey-2026/blob/cdxi/ellie-may-audit-polish/docs/FLESHSESH_REVENUE_REVIEW_2026-11-08.md"
+        "https://github.com/cdxidigital/alexagrey-2026/blob/cdxi/ellie-may-audit-polish/docs/FLESHSESH_REVENUE_REVIEW_2026-11-08.md",
+        "https://github.com/cdxidigital/alexagrey-2026/blob/cdxi/ellie-may-audit-polish/docs/ELLIE_CREATOR_REVENUE_2026-11-08.md"
       ],
       "reason": ""
     },
@@ -43,13 +44,13 @@
     {
       "id": 4,
       "name": "Foundation",
-      "status": "passed",
+      "status": "pending",
       "evidence": [
         "https://github.com/cdxidigital/alexagrey-2026/blob/cdxi/ellie-may-audit-polish/src/routes/index.tsx",
         "https://github.com/cdxidigital/alexagrey-2026/blob/cdxi/ellie-may-audit-polish/src/lib/public-mode.server.ts",
         "https://github.com/cdxidigital/alexagrey-2026/blob/cdxi/ellie-may-audit-polish/src/lib/ellie-digital-scope.ts"
       ],
-      "reason": ""
+      "reason": "Current design repo inspected, but production domain owner/hosting/source remains unverified."
     },
     {
       "id": 5,
@@ -395,9 +396,117 @@
         "L02"
       ],
       "evidence": []
+    },
+    {
+      "id": "C00",
+      "title": "Map alexagrey.fleshsesh.fans to its actual hosting/project/repo",
+      "stage": 4,
+      "points": 5,
+      "status": "blocked",
+      "owner": "Platform owner",
+      "acceptance": "Live domain host/project/repository authenticated and code origin verified",
+      "depends_on": [],
+      "evidence": []
+    },
+    {
+      "id": "C01",
+      "title": "Define adult influencer/model digital income channels",
+      "stage": 2,
+      "points": 3,
+      "status": "done",
+      "owner": "Ellie May + fleshsesh digital publisher",
+      "acceptance": "Creator memberships, premium digital media, commissions, streams, sponsors and merchandise scoped separately from fleshsesh services",
+      "depends_on": [
+        "B01"
+      ],
+      "evidence": [
+        "https://github.com/cdxidigital/alexagrey-2026/blob/cdxi/ellie-may-audit-polish/docs/ELLIE_CREATOR_REVENUE_2026-11-08.md"
+      ]
+    },
+    {
+      "id": "C02",
+      "title": "Implement consent-gated creator offer catalogue",
+      "stage": 5,
+      "points": 3,
+      "status": "done",
+      "owner": "Ellie May + fleshsesh digital publisher",
+      "acceptance": "No invented URLs/prices; anonymous users only see approved HTTPS destinations",
+      "depends_on": [
+        "C01"
+      ],
+      "evidence": [
+        "https://github.com/cdxidigital/alexagrey-2026/blob/cdxi/ellie-may-audit-polish/src/lib/ellie-creator-offers.server.ts"
+      ]
+    },
+    {
+      "id": "C03",
+      "title": "Build black-and-gold creator offers UI for the reference source",
+      "stage": 5,
+      "points": 5,
+      "status": "done",
+      "owner": "Ellie May + fleshsesh digital publisher",
+      "acceptance": "Responsive section and editorial integration; source implementation only, no current live deployment claim",
+      "depends_on": [
+        "C02"
+      ],
+      "evidence": [
+        "https://github.com/cdxidigital/alexagrey-2026/blob/cdxi/ellie-may-audit-polish/src/components/ellie-creator-offers.tsx"
+      ]
+    },
+    {
+      "id": "C04",
+      "title": "Verify Ellie-owned external creator offer links",
+      "stage": 5,
+      "points": 2,
+      "status": "blocked",
+      "owner": "Ellie May + fleshsesh digital publisher",
+      "acceptance": "Creator approves active accounts and permitted product categories; links tested by owner",
+      "depends_on": [
+        "C02"
+      ],
+      "evidence": []
+    },
+    {
+      "id": "C05",
+      "title": "Verify creator platform terms and run one ethical conversion test",
+      "stage": 6,
+      "points": 3,
+      "status": "blocked",
+      "owner": "Creator + compliance lead",
+      "acceptance": "Actual fee/payout sources, attribution evidence and a completed subscription measurement window",
+      "depends_on": [
+        "C04"
+      ],
+      "evidence": []
+    },
+    {
+      "id": "C06",
+      "title": "Clarify old hourly rates as modelling fees before displaying",
+      "stage": 5,
+      "points": 2,
+      "status": "blocked",
+      "owner": "Ellie May + fleshsesh digital publisher",
+      "acceptance": "Ellie confirms scope, rates, mandatory fees, rights and permitted advertising",
+      "depends_on": [
+        "D02"
+      ],
+      "evidence": []
+    },
+    {
+      "id": "C07",
+      "title": "Age, consent and direct-media production safety review",
+      "stage": 6,
+      "points": 3,
+      "status": "blocked",
+      "owner": "Creator + compliance lead",
+      "acceptance": "Appropriate content classification and age assurance for all publicly accessible images/video",
+      "depends_on": [
+        "I06"
+      ],
+      "evidence": []
     }
   ],
-  "next_action": "Restore/replace GitHub Actions runner, regenerate clean npm lockfile and execute full React QA; in parallel Ellie and counsel classify/approve each media asset, mandatory price component and independent contact URL.",
+  "next_action": "Identify the canonical host and code repository for alexagrey.fleshsesh.fans, then port the gated black-and-gold digital creator offers and verify the actual hosted page.",
   "blockers": [
     {
       "id": "X01",
@@ -422,6 +531,18 @@
       "owner": "Release lead",
       "problem": "V5.1 commit not matched to a fresh verified Vercel deployment",
       "resolution": "Stage/verify exact candidate only after passing build and publication gates"
+    },
+    {
+      "id": "X05",
+      "owner": "Domain/platform owner",
+      "problem": "alexagrey.fleshsesh.fans cannot be fetched via available web tool; Vercel domain lookup is 403 in linked accounts; current repo not proven to serve it.",
+      "resolution": "Provide/enable authorized access to domain provider or canonical source repo, inspect active deployment and deploy only after verification."
+    },
+    {
+      "id": "X06",
+      "owner": "Ellie May",
+      "problem": "No verified membership, clips, commission, live, sponsor, affiliate or merchandise destinations; old hourly rates not confirmed as modelling-specific.",
+      "resolution": "Confirm creator-controlled channel URLs, professional scope and approved prices before any public CTA."
     }
   ],
   "scope_history": [
@@ -431,6 +552,15 @@
       "old_points": null,
       "new_points": 69,
       "comparability": "No previous standard point ledger; this is the baseline. Earlier six-phase percentages are not directly comparable."
+    },
+    {
+      "date": "2026-11-08",
+      "change": "User clarified Ellie May is an adult influencer/model and the actual target is alexagrey.fleshsesh.fans. New revenue channels now centre paid digital creator content; the B2B fleshsesh service model remains separate. Scope expanded to include mapping the true domain.",
+      "old_points": 69,
+      "new_points": 95,
+      "old_percent": 52,
+      "new_percent": 49,
+      "comparability": "Percent changed because active scope expanded and stage 4 was reopened until real domain source is verified. Existing completed work preserved."
     }
   ],
   "process_improvements": [
@@ -452,5 +582,10 @@
       "f67c22e58847be9a1ed41ee73cd00b6f8ed59112"
     ],
     "limitations": "Full React pipeline is blocked before runner starts; financial data are model assumptions, not invoiced actuals."
-  }
+  },
+  "target_domain": "alexagrey.fleshsesh.fans",
+  "target_domain_hosting_status": "not_verified",
+  "authoritative_source_status": "working_design_repository_only_unconfirmed_live_domain",
+  "creator_occupation": "adult influencer and model",
+  "revenue_priority": "Ellie May creator digital content, memberships and partnerships, not fleshsesh B2B web services"
 }
