@@ -55,6 +55,12 @@ Anonymised digital creator-account ID; service SKU and invoice ID; invoice date/
 
 **Next finance action:** capture the first actual digital service delivery timesheet and invoice settlement. Only then replace assumptions with realised gross, net receipts, contribution and retention; do not use Ellie May's personal/physical earnings as a proxy.
 
+## Executable modelling evidence
+- `scripts/fleshsesh-digital-economics.mjs` expresses the assumed plans, loaded labour, hypothetical processing reserve and contribution bridge.
+- `scripts/fleshsesh-digital-economics.test.mjs` has **five passing Node 22 tests** (8 November 2026). Original local files match exact Git blob SHAs `f70a9e35eb145f41116dde040affab62dd12e1f2` and `f67c22e58847be9a1ed41ee73cd00b6f8ed59112`.
+- The calculations are verified **as arithmetic under stated assumptions only**, not as a reconciled digital-service income statement.
+- Re-run `node --test scripts/fleshsesh-digital-economics.test.mjs` whenever the offers, cost basis, fee reserve or capacity assumptions change.
+
 ## Regulatory and platform constraints
 - The digital-only arrangement must be genuine, reflected in invoices and actual conduct. WA Prostitution Act 2000 s10(3)(b) distinguishes bona fide services contracts within a sponsorship definition but does not automatically license all advertising. Legal review remains necessary.
 - Under ACCC pricing guidance, publicly advertised consumer prices must account for unavoidable taxes/fees and avoid misleading totals; the modelled GST-excluded B2B figures are **internal**, not ready-to-publish consumer prices.
